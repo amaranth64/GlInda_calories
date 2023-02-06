@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">GlInda: Calories</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="dairy_produce">Dairy produce</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="protein">Protein,g</string>
+    <string name="carbo">Carbo,g</string>
+    <string name="fat">Fat,g</string>
+    <string name="energy">Energy</string>
+    <string name="foto">Foto</string>
 </resources>

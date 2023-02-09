@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/linear"
         app:srcCompat="@drawable/p_brokkoli"
-        android:contentDescription="@string/foto" />
+        android:contentDescription="@string/photo" />
 
     <TextView
         android:id="@+id/tvName"

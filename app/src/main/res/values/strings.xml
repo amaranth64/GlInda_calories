@@ -18,4 +18,6 @@
     <string name="nvMenuExit">Выход</string>
     <string name="nvMenuSettings">Настройки</string>
     <string name="nvMenuHeader">Калории и Меню</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>

@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/p_brokkoli"
-        android:contentDescription="@string/foto" />
+        android:contentDescription="@string/photo" />
 
     <TextView
         android:id="@+id/tvName"
@@ -37,7 +37,6 @@
         android:id="@+id/ib_AddToMenu"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:layout_marginEnd="5dp"
         android:background="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

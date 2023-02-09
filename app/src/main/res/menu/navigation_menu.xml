@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view" >
+
+    <item android:title="@string/nvMenuCaptionMain">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id = "@+id/id_nav_menu_calories"
+                    android:icon="@drawable/ic_food_b"
+                    android:title = "@string/nvMenuCalories"/>
+
+                <item
+                    android:id = "@+id/id_nav_menu_myfood"
+                    android:icon="@drawable/ic_my_menu_b"
+                    android:title = "@string/nvMenuMyFood"/>
+
+                <item
+                    android:id = "@+id/id_nav_menu_calc"
+                    android:icon="@drawable/ic_calculate_b"
+                    android:title = "@string/nvMenuCalc"/>
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="@string/nvMenuCaptionApp">
+        <menu>
+            <item
+                android:id = "@+id/id_nav_menu_settings"
+                android:icon="@drawable/ic_setup_b"
+                android:title = "@string/nvMenuSettings"/>
+            <item
+                android:id = "@+id/id_nav_menu_about"
+                android:icon="@drawable/ic_about"
+                android:title = "@string/nvMenuAbout"/>
+            <item
+                android:id="@+id/id_nav_menu_exit"
+                android:icon="@drawable/ic_exit_b"
+                android:title="@string/nvMenuExit" />
+        </menu>
+    </item>
+
+
+
+</menu>

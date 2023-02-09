@@ -8,5 +8,14 @@
     <string name="carbo">Carbo,g</string>
     <string name="fat">Fat,g</string>
     <string name="energy">Energy</string>
-    <string name="foto">Foto</string>
+    <string name="photo">Foto</string>
+    <string name="nvMenuCaptionMain">Главная</string>
+    <string name="nvMenuCaptionApp">Приложение</string>
+    <string name="nvMenuCalories">Калории</string>
+    <string name="nvMenuMyFood">Мой рацион</string>
+    <string name="nvMenuCalc">Калькуляторы</string>
+    <string name="nvMenuAbout">О программе</string>
+    <string name="nvMenuExit">Выход</string>
+    <string name="nvMenuSettings">Настройки</string>
+    <string name="nvMenuHeader">Калории и Меню</string>
 </resources>

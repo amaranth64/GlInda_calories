@@ -16,6 +16,7 @@
         <item name="android:windowFullscreen">true</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="colorRCBackground">@color/rcview_background_blue</item>
     </style>
 
     <style name="navigationStyle" parent="Theme.GlInda_calories">
@@ -23,5 +24,6 @@
         <item name="colorPrimary">@color/red</item>
         <item name="android:state_selected">@color/white</item>
     </style>
+
 
 </resources>

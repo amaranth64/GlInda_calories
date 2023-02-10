@@ -16,4 +16,6 @@
     <color name="card_fat">#FDCB80</color>
     <color name="card_carbo">#FFF59E</color>
     <color name="card_energy">#9EC5FF</color>
+
+    <color name="rcview_background_blue">#58CFFF</color>
 </resources>

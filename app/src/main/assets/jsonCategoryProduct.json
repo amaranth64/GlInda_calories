@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Узел Кент",
+    "type": 1,
+    "slug": "uzel_kent"
+  },
+  {
+    "name": "Узел Ориентал",
+    "type": 1,
+    "slug": "uzel_oriental"
+  },
+  {
+    "name": "Узел Четвертной",
+    "type": 1,
+    "slug": "uzel_chetvertnoj"
+  },
+  {
+    "name": "Узел Платтсбург",
+    "type": 1,
+    "slug": "uzel_plattsburg"
+  },
+  {
+   "name": "Узел Балтус",
+   "type": 1,
+   "slug": "uzel_baltus"
+ }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "name": "ИМТ",
+    "type": 2,
+    "slug": "uzel_kent"
+  },
+  {
+    "name": "Идеальный вес",
+    "type": 2,
+    "slug": "uzel_oriental"
+  },
+  {
+    "name": "Суточный рацион",
+    "type": 2,
+    "slug": "uzel_chetvertnoj"
+  }
+]

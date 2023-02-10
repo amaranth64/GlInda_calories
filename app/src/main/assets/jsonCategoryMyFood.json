@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Завтрак",
+    "type": 3,
+    "slug": "uzel_kent"
+  },
+  {
+    "name": "Обед",
+    "type": 3,
+    "slug": "uzel_oriental"
+  },
+  {
+    "name": "Ужин",
+    "type": 3,
+    "slug": "uzel_chetvertnoj"
+  }
+]

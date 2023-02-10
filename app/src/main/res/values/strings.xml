@@ -8,7 +8,7 @@
     <string name="carbo">Carbo,g</string>
     <string name="fat">Fat,g</string>
     <string name="energy">Energy</string>
-    <string name="photo">Foto</string>
+    <string name="photo">Photo</string>
     <string name="nvMenuCaptionMain">Главная</string>
     <string name="nvMenuCaptionApp">Приложение</string>
     <string name="nvMenuCalories">Калории</string>
@@ -20,4 +20,10 @@
     <string name="nvMenuHeader">Калории и Меню</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+
+    <string name="error_db">Ошибка базы данных</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pref_linear">linear</string>
+    <string name="empty">Пусто</string>
 </resources>

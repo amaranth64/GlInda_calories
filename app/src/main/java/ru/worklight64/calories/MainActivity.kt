@@ -7,6 +7,10 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
 import ru.worklight64.calories.databinding.ActivityMainBinding
+import ru.worklight64.calories.fragments.FragmentCalc
+import ru.worklight64.calories.fragments.FragmentManager
+import ru.worklight64.calories.fragments.FragmentMyFood
+import ru.worklight64.calories.fragments.FragmentProduct
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     
@@ -29,18 +33,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
         form.nvMain.setCheckedItem(R.id.id_nav_menu_calories)
         form.nvMain.setNavigationItemSelectedListener(this)
+
+        FragmentManager.setFragment(FragmentProduct.newInstance(), this)
     }
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId){
             R.id.id_nav_menu_calories -> {
-
+                FragmentManager.setFragment(FragmentProduct.newInstance(), this)
             }
             R.id.id_nav_menu_myfood -> {
-
+                FragmentManager.setFragment(FragmentMyFood.newInstance(), this)
             }
             R.id.id_nav_menu_calc -> {
-
+                FragmentManager.setFragment(FragmentCalc.newInstance(), this)
             }
             R.id.id_nav_menu_settings -> {
 

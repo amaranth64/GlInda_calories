@@ -26,4 +26,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pref_linear">linear</string>
     <string name="empty">Пусто</string>
+    <string name="caption">Caption</string>
+    <string name="text_hint">Text hitt</string>
+    <string name="button">Button</string>
 </resources>

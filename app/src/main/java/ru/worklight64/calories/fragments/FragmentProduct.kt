@@ -1,19 +1,23 @@
 package ru.worklight64.calories.fragments
 
-import android.content.Context
+
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import ru.worklight64.calories.MainApp
 import ru.worklight64.calories.R
 import ru.worklight64.calories.adapters.CategoryAdapter
 import ru.worklight64.calories.databinding.FragmentProductBinding
+import ru.worklight64.calories.db.MainViewModel
 import ru.worklight64.calories.entities.ItemCategoryClass
+
 import ru.worklight64.calories.utils.JsonHelper
 
 
@@ -21,6 +25,10 @@ class FragmentProduct : Fragment(), CategoryAdapter.CategoryListener {
     private lateinit var form: FragmentProductBinding
     private lateinit var pref: SharedPreferences
     private lateinit var adapter: CategoryAdapter
+
+    private val mainViewModel: MainViewModel by activityViewModels{
+        MainViewModel.MainViewModelFactory((context?.applicationContext as MainApp).database)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

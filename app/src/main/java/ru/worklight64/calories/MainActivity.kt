@@ -15,12 +15,16 @@ import ru.worklight64.calories.fragments.FragmentProduct
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     
     private lateinit var form: ActivityMainBinding
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         form = ActivityMainBinding.inflate(layoutInflater)
         setContentView(form.root)
 
         init()
+
     }
 
     private fun init(){

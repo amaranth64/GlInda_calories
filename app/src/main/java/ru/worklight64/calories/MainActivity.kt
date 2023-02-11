@@ -10,7 +10,7 @@ import ru.worklight64.calories.databinding.ActivityMainBinding
 import ru.worklight64.calories.fragments.FragmentCalc
 import ru.worklight64.calories.fragments.FragmentManager
 import ru.worklight64.calories.fragments.FragmentMyFood
-import ru.worklight64.calories.fragments.FragmentProduct
+import ru.worklight64.calories.fragments.FragmentProductCategory
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     
@@ -38,13 +38,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         form.nvMain.setCheckedItem(R.id.id_nav_menu_calories)
         form.nvMain.setNavigationItemSelectedListener(this)
 
-        FragmentManager.setFragment(FragmentProduct.newInstance(), this)
+        FragmentManager.setFragment(FragmentProductCategory.newInstance(), this)
     }
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId){
             R.id.id_nav_menu_calories -> {
-                FragmentManager.setFragment(FragmentProduct.newInstance(), this)
+                FragmentManager.setFragment(FragmentProductCategory.newInstance(), this)
             }
             R.id.id_nav_menu_myfood -> {
                 FragmentManager.setFragment(FragmentMyFood.newInstance(), this)

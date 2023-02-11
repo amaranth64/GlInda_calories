@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Тест 1",
+    "protein": 11.2,
+    "carbo": 22.2,
+    "fat": 22.2,
+    "energy": 22.2,
+    "slug": "test1"
+  },
+  {
+    "name": "Тест 2",
+    "protein": 22.2,
+    "carbo": 22.2,
+    "fat": 22.2,
+    "energy": 22.2,
+    "slug": "test2"
+  },
+  {
+    "name": "Тест 2",
+    "protein": 33.2,
+    "carbo": 22.2,
+    "fat": 22.2,
+    "energy": 22.2,
+    "slug": "test3"
+  }
+]

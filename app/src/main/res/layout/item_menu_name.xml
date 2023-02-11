@@ -47,9 +47,9 @@
         android:id="@+id/linear_calories"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="1dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/linear"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -60,7 +60,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="1dp"
             android:orientation="vertical"
             android:background="@color/card_protein"
             android:gravity="center"
@@ -100,7 +100,7 @@
             android:layout_gravity="center"
             android:orientation="vertical"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="1dp"
             android:background="@color/card_carbo"
             android:gravity="center"
             app:layout_constraintHorizontal_weight="0.23"
@@ -138,7 +138,7 @@
             android:layout_gravity="center"
             android:orientation="vertical"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="1dp"
             android:background="@color/card_fat"
             android:gravity="center"
 
@@ -146,7 +146,7 @@
             app:layout_constraintStart_toEndOf="@+id/card_carbo"
             app:layout_constraintEnd_toStartOf="@+id/card_energy"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toTopOf="parent">
 
 
                 <TextView
@@ -178,7 +178,7 @@
             android:layout_gravity="center"
             android:orientation="vertical"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="1dp"
             android:background="@color/card_energy"
             android:gravity="center"
 
@@ -216,9 +216,9 @@
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="10dp"
         android:orientation="vertical"
-        android:background="@color/gray_linear"
+        android:background="@color/rcview_background_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">

@@ -19,7 +19,7 @@ import ru.worklight64.calories.databinding.FragmentProductBinding
 import ru.worklight64.calories.db.MainViewModel
 
 import ru.worklight64.calories.entities.MenuNameListItem
-
+import ru.worklight64.calories.utils.CommonConst
 
 
 class FragmentMyFood : Fragment(), MyFoodAdapter.MyFoodListener {
@@ -54,7 +54,7 @@ class FragmentMyFood : Fragment(), MyFoodAdapter.MyFoodListener {
     private fun initRcView(){
         pref = PreferenceManager.getDefaultSharedPreferences(requireActivity())
         val linear = getString(R.string.pref_linear)
-        if (pref.getString("product_style_key",linear) == linear) form.rcViewProduct.layoutManager = LinearLayoutManager(activity)
+        if (pref.getString(CommonConst.KEY_LINEAR, linear) == linear) form.rcViewProduct.layoutManager = LinearLayoutManager(activity)
         else form.rcViewProduct.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
         adapter = MyFoodAdapter(this@FragmentMyFood, pref)

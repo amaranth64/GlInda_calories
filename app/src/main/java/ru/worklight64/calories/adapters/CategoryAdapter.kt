@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.worklight64.calories.R
 import ru.worklight64.calories.databinding.ItemCategoryBinding
-import ru.worklight64.calories.fragments.FragmentProduct
 
 class CategoryAdapter(private var listener: CategoryListener, private val defPref: SharedPreferences):
     ListAdapter<ItemCategoryClass, CategoryAdapter.ItemHolder>(ItemComparator()) {

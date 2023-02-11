@@ -1,27 +1,27 @@
 [
   {
-    "name": "Узел Кент",
+    "name": "Молочные продукты",
     "type": 1,
-    "slug": "uzel_kent"
+    "slug": "milk_dairy"
   },
   {
-    "name": "Узел Ориентал",
+    "name": "Колбасные изделия",
     "type": 1,
-    "slug": "uzel_oriental"
+    "slug": "kolbasny_izdelia"
   },
   {
-    "name": "Узел Четвертной",
+    "name": "Первые блюда",
     "type": 1,
-    "slug": "uzel_chetvertnoj"
+    "slug": "pervy_bluda"
   },
   {
-    "name": "Узел Платтсбург",
+    "name": "Вторые блюда",
     "type": 1,
-    "slug": "uzel_plattsburg"
+    "slug": "vtoroy_bluda"
   },
   {
-   "name": "Узел Балтус",
+   "name": "Соки",
    "type": 1,
-   "slug": "uzel_baltus"
+   "slug": "soki"
  }
 ]

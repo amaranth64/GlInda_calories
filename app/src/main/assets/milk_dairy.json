@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Молоко 1",
+    "protein": 11.2,
+    "carbo": 22.2,
+    "fat": 22.2,
+    "energy": 22.2,
+    "slug": "milk1"
+  },
+  {
+    "name": "Молоко 2",
+    "protein": 22.2,
+    "carbo": 22.2,
+    "fat": 22.2,
+    "energy": 22.2,
+    "slug": "milk2"
+  },
+  {
+    "name": "Молоко 2",
+    "protein": 33.2,
+    "carbo": 22.2,
+    "fat": 22.2,
+    "energy": 22.2,
+    "slug": "milk3"
+  }
+]

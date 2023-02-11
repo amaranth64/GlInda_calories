@@ -1,6 +1,5 @@
 package ru.worklight64.calories.fragments
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +13,7 @@ import ru.worklight64.calories.R
 import ru.worklight64.calories.adapters.CategoryAdapter
 import ru.worklight64.calories.databinding.FragmentProductBinding
 import ru.worklight64.calories.entities.ItemCategoryClass
+import ru.worklight64.calories.utils.CommonConst
 import ru.worklight64.calories.utils.JsonHelper
 
 
@@ -45,10 +45,10 @@ class FragmentCalc : Fragment(), CategoryAdapter.CategoryListener {
     private fun initRcView(){
         pref = PreferenceManager.getDefaultSharedPreferences(requireActivity())
         val linear = getString(R.string.pref_linear)
-        if (pref.getString("product_style_key",linear) == linear) form.rcViewProduct.layoutManager = LinearLayoutManager(activity)
+        if (pref.getString(CommonConst.KEY_LINEAR, linear) == linear) form.rcViewProduct.layoutManager = LinearLayoutManager(activity)
         else form.rcViewProduct.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
-        val itemList = JsonHelper.getList("jsonCategoryCalc.json", requireContext())
+        val itemList = JsonHelper.getCategoryList("jsonCategoryCalc.json", requireContext())
         adapter = CategoryAdapter(this@FragmentCalc, pref)
         adapter.submitList(itemList)
         if (itemList.isEmpty()) form.tvEmpty.visibility = View.VISIBLE else form.tvEmpty.visibility = View.GONE

@@ -17,7 +17,6 @@ import ru.worklight64.calories.utils.JsonHelper
 
 class ProductListActivity : AppCompatActivity(), ProductListAdapter.ProductListListener {
 
-    private var param = "test"
     private lateinit var adapter: ProductListAdapter
     private lateinit var form: ActivityProductListBinding
     private lateinit var pref: SharedPreferences
@@ -28,7 +27,9 @@ class ProductListActivity : AppCompatActivity(), ProductListAdapter.ProductListL
         setContentView(form.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        initRcView()
+
+        initSharedPreferences()
+        initRecyclerView()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -44,14 +45,16 @@ class ProductListActivity : AppCompatActivity(), ProductListAdapter.ProductListL
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initRcView(){
+    private fun initSharedPreferences(){
         pref = PreferenceManager.getDefaultSharedPreferences(this)
         val linear = getString(R.string.pref_linear)
         if (pref.getString(CommonConst.KEY_LINEAR,linear) == linear) form.rcViewProduct.layoutManager = LinearLayoutManager(this)
         else form.rcViewProduct.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+    }
 
-        val file = "$param.json"
-
+    private fun initRecyclerView(){
+        val param = intent.getStringExtra(CommonConst.INTENT_SLUG).toString()
+        val file = if (param.isEmpty()) "test.json" else "$param.json"
         val itemList = JsonHelper.getProductList(file, this)
         adapter = ProductListAdapter(this@ProductListActivity, pref)
         adapter.submitList(itemList)

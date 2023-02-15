@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.worklight64.calories.R
 import ru.worklight64.calories.databinding.ItemMenuNameBinding
+import ru.worklight64.calories.databinding.TaskItemBinding
 import ru.worklight64.calories.entities.MenuNameListItem
 
 class MyFoodAdapter(private var listener: MyFoodListener, private val defPref: SharedPreferences):
@@ -24,6 +25,7 @@ class MyFoodAdapter(private var listener: MyFoodListener, private val defPref: S
 
     class ItemHolder(view: View): RecyclerView.ViewHolder(view){
         private val itemForm = ItemMenuNameBinding.bind(view)
+        //private val itemForm = TaskItemBinding.bind(view)
 
         fun setData(item: MenuNameListItem, listener: MyFoodListener, defPref: SharedPreferences)= with(itemForm){
             itemForm.tvName.text = item.name
@@ -37,12 +39,12 @@ class MyFoodAdapter(private var listener: MyFoodListener, private val defPref: S
                 listener.onClickItem(item)
             }
 
-            itemForm.ibEdit.setOnClickListener {
-                listener.editItem(item)
-            }
-            itemForm.ibDelete.setOnClickListener {
-                listener.deleteItem(item)
-            }
+//            itemForm.ibEdit.setOnClickListener {
+//                listener.editItem(item)
+//            }
+//            itemForm.ibDelete.setOnClickListener {
+//                listener.deleteItem(item)
+//            }
 
         }
 

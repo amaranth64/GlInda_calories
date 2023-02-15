@@ -1,13 +1,14 @@
 package ru.worklight64.calories.fragments
 
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Canvas
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.preference.PreferenceManager
@@ -19,14 +20,17 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import ru.worklight64.calories.MainApp
 import ru.worklight64.calories.R
 import ru.worklight64.calories.adapters.MyFoodAdapter
-import ru.worklight64.calories.databinding.FragmentProductBinding
+import ru.worklight64.calories.adapters.RecyclerTouchListener
+import ru.worklight64.calories.adapters.RecyclerTouchListener.OnRowClickListener
+import ru.worklight64.calories.adapters.RecyclerTouchListener.OnSwipeOptionsClickListener
+import ru.worklight64.calories.databinding.FragmentMyfoodBinding
 import ru.worklight64.calories.db.MainViewModel
 import ru.worklight64.calories.entities.MenuNameListItem
 import ru.worklight64.calories.utils.CommonConst
 
 
 class FragmentMyFood : Fragment(), MyFoodAdapter.MyFoodListener {
-    private lateinit var form: FragmentProductBinding
+    private lateinit var form: FragmentMyfoodBinding
     private lateinit var pref: SharedPreferences
     private lateinit var adapter: MyFoodAdapter
 
@@ -43,7 +47,7 @@ class FragmentMyFood : Fragment(), MyFoodAdapter.MyFoodListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        form = FragmentProductBinding.inflate(inflater, container, false)
+        form = FragmentMyfoodBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
         return form.root
     }
@@ -51,8 +55,8 @@ class FragmentMyFood : Fragment(), MyFoodAdapter.MyFoodListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRcView()
-        val swiper = getSwipeManager()
-        swiper.attachToRecyclerView(form.rcViewProduct)
+        //val swiper = getSwipeManager()
+        //swiper.attachToRecyclerView(form.rcViewProduct)
         observer()
     }
 
@@ -62,8 +66,45 @@ class FragmentMyFood : Fragment(), MyFoodAdapter.MyFoodListener {
         if (pref.getString(CommonConst.KEY_LINEAR, linear) == linear) form.rcViewProduct.layoutManager = LinearLayoutManager(activity)
         else form.rcViewProduct.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
+
         adapter = MyFoodAdapter(this@FragmentMyFood, pref)
         form.rcViewProduct.adapter = adapter
+
+        val touchListener = RecyclerTouchListener(activity, form.rcViewProduct)
+        touchListener.setClickable(object : OnRowClickListener {
+                override fun onRowClicked(position: Int) {
+                    Toast.makeText(
+                        context,
+                        "taskList.get(position).getName()",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                override fun onIndependentViewClicked(independentViewID: Int, position: Int) {}
+            })
+            .setSwipeOptionViews(R.id.delete_task, R.id.edit_task)
+            .setSwipeable(R.id.rowFG, R.id.rowBG,
+                OnSwipeOptionsClickListener { viewID, position ->
+                    when (viewID) {
+                        R.id.delete_task -> {
+                            val a = adapter.currentList[position]
+                            mainViewModel.deleteMenuName(a.id!!)
+                        }
+                        R.id.edit_task -> {
+                            Toast.makeText(
+                                context,
+                                "Edit",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+                    }
+                })
+
+        form.rcViewProduct.addOnItemTouchListener(touchListener)
+
+
+
     }
 
     private fun getSwipeManager(): ItemTouchHelper{

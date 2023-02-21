@@ -1,27 +1,36 @@
 package ru.worklight64.calories
 
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import ru.worklight64.calories.adapters.ProductListAdapter
 import ru.worklight64.calories.databinding.ActivityProductListBinding
+import ru.worklight64.calories.db.MainViewModel
+import ru.worklight64.calories.dialogs.AddProductToMenuDialog
 import ru.worklight64.calories.entities.ItemProductClass
+import ru.worklight64.calories.entities.MenuProductListItem
 import ru.worklight64.calories.fragments.FragmentProductCategory
 import ru.worklight64.calories.utils.CommonConst
 import ru.worklight64.calories.utils.DataContainerHelper
-import ru.worklight64.calories.utils.JsonHelper
 
-class ProductListActivity : AppCompatActivity(), ProductListAdapter.ProductListListener {
+class ProductListActivity : AppCompatActivity(), ProductListAdapter.ProductListListener, AddProductToMenuDialog.Listener {
 
     private lateinit var adapter: ProductListAdapter
     private lateinit var form: ActivityProductListBinding
     private lateinit var pref: SharedPreferences
+
+    private var currentCategory: String = ""
+
+    private val mainViewModel: MainViewModel by viewModels{
+        MainViewModel.MainViewModelFactory((applicationContext as MainApp).database)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,10 +64,10 @@ class ProductListActivity : AppCompatActivity(), ProductListAdapter.ProductListL
     }
 
     private fun initRecyclerView(){
-        val param = intent.getStringExtra(FragmentProductCategory.PROD_CAT_KEY).toString()
-        val file = if (param.isEmpty()) "test.json" else "$param.json"
+        currentCategory = intent.getStringExtra(FragmentProductCategory.PROD_CAT_KEY).toString()
+        //val file = if (currentCategory.isEmpty()) "test.json" else "$currentCategory.json"
 
-        val itemList = DataContainerHelper.getContainer(this,param)
+        val itemList = DataContainerHelper.getContainer(this, currentCategory)
 
         //val itemList = JsonHelper.getProductList(file, this)
         adapter = ProductListAdapter(this@ProductListActivity, pref)
@@ -72,7 +81,20 @@ class ProductListActivity : AppCompatActivity(), ProductListAdapter.ProductListL
     }
 
     override fun addItem(item: ItemProductClass) {
+       mainViewModel.allMenuNames.observe(this){
+        AddProductToMenuDialog.showDialog(this, this, item, it)
+       }
 
+    }
+
+    override fun onAdd(slug: String, count: Int, menuID: Int) {
+        mainViewModel.insertProductToMenu(
+            MenuProductListItem(
+                null,
+                currentCategory,
+                slug,
+                count,
+                menuID))
     }
 
 }

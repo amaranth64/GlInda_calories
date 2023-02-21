@@ -52,8 +52,8 @@ class FragmentProductCategory : Fragment(), CategoryAdapter.CategoryListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRcView()
-        //mainViewModel.insertMenuName(MenuNameListItem(null, "Завтрак", 500.434,  1500.434,  300.434, 2342.999, "zavtrak"))
-        //mainViewModel.insertMenuName(MenuNameListItem(null, "Ужин", 200.434,  3500.434,  200.434, 2142.999, "uzin"))
+        mainViewModel.insertMenuName(MenuNameListItem(null, "Завтрак", 500.434,  1500.434,  300.434, 2342.999, "zavtrak"))
+        mainViewModel.insertMenuName(MenuNameListItem(null, "Ужин", 200.434,  3500.434,  200.434, 2142.999, "uzin"))
     }
 
     private fun initRcView(){

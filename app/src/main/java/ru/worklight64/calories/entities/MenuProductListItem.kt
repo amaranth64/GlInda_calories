@@ -8,8 +8,12 @@ import androidx.room.PrimaryKey
 data class MenuProductListItem(
     @PrimaryKey(autoGenerate = true)
     val id: Int?,
+    @ColumnInfo(name = "category")
+    val category: String,
     @ColumnInfo(name = "slug")
     val slug: String,
+    @ColumnInfo(name = "count")
+    val count: Int,
     @ColumnInfo(name = "menu_id")
-    val menuID: String
+    val menuID: Int
 )

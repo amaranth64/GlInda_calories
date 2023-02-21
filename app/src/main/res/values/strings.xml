@@ -29,6 +29,13 @@
     <string name="caption">Caption</string>
     <string name="text_hint">Text hitt</string>
     <string name="button">Button</string>
+    <string name="txt_at100gramm">на 100 грамм продукта:</string>
+    <string name="txt_at1por">на одну порцию:</string>
+    <string name="add">Добавить</string>
+    <string name="cancel">отмена</string>
+    <string name="size_of_por">Размер порции в граммах:</string>
+    <string name="size_of_gramm">Размер порции в граммах:</string>
+    <string name="add_to_menu">Добавить к меню:</string>
 
 
 </resources>

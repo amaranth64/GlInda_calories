@@ -3,6 +3,7 @@ package ru.worklight64.calories.db
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import ru.worklight64.calories.entities.MenuNameListItem
+import ru.worklight64.calories.entities.MenuProductListItem
 
 class MainViewModel(database: MainDataBase): ViewModel() {
 
@@ -18,6 +19,12 @@ class MainViewModel(database: MainDataBase): ViewModel() {
     }
     fun deleteMenuName(id: Int) = viewModelScope.launch {
         dao.deleteMenuName(id)
+    }
+
+    //==============================================
+
+    fun insertProductToMenu(item: MenuProductListItem) = viewModelScope.launch {
+        dao.insertMenuProductItem(item)
     }
 
 

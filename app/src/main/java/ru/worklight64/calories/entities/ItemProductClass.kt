@@ -12,5 +12,8 @@ data class ItemProductClass(
     val fat: Double,
     val energy: Double,
     val url_picture: String,
-    val url_site: String
+    val url_site: String,
+    val type: Int,
+    val weight: Int,
+    val slug: String
 )

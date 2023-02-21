@@ -5,6 +5,8 @@ object CommonConst {
 
     const val INTENT_SLUG = "slug"
 
+    const val TYPE_100 = 1
+    const val TYPE_WEIGHT = 2
 
     const val SLUG_SPORT = "sport"
 }

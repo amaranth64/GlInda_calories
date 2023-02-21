@@ -42,14 +42,17 @@ object JsonHelper {
             val energy = obj.getDouble("calories")
             val urlpicture = obj.getString("url-picture")
             val urlsite = obj.getString("url-site")
+            val type = obj.getInt("type")
+            val weight = obj.getInt("weight")
+            val slug = obj.getString("slug")
 
-            val item = ItemProductClass(name, desc, brand, category, protein, carbo, fat, energy, urlpicture, urlsite)
+            val item = ItemProductClass(name, desc, brand, category, protein, carbo, fat, energy, urlpicture, urlsite, type, weight, slug)
             list.add(item)
         }
         return list
     }
     private fun getJsonText(file:String, context: Context):String{
-        var jsonFileData: String = "[]"
+        var jsonFileData = "[]"
         try {
             val inputStream: InputStream = context.assets.open(file)
             val size:Int = inputStream.available()

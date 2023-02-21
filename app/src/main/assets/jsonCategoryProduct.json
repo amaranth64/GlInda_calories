@@ -5,6 +5,11 @@
     "slug": "milk_dairy"
   },
   {
+    "name": "Спортивное питание",
+    "type": 1,
+    "slug": "sport"
+  },
+  {
     "name": "Колбасные изделия",
     "type": 1,
     "slug": "kolbasny_izdelia"

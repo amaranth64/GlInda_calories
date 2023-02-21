@@ -8,6 +8,7 @@ import ru.worklight64.calories.entities.ItemCategoryClass
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import ru.worklight64.calories.R
 import ru.worklight64.calories.databinding.ItemCategoryBinding
 
@@ -27,7 +28,10 @@ class CategoryAdapter(private var listener: CategoryListener, private val defPre
 
         fun setData(item: ItemCategoryClass, listener: CategoryListener, defPref: SharedPreferences)= with(itemForm){
             tvName.text = item.name
-
+            Picasso.get()
+                .load("https://calorizator.ru/sites/default/files/imagecache/product_512/product/bombbar-keto-almond-nougat-vanilla.jpg")
+                .error(R.drawable.p_brokkoli)
+                .into(imageView)
             itemView.setOnClickListener {
                 listener.onClickItem(item)
             }

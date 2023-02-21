@@ -1,26 +1,20 @@
 [
   {
-    "name": "Молоко 1",
+    "title": "Молоко 1",
     "protein": 11.2,
     "carbo": 22.2,
-    "fat": 22.2,
-    "energy": 22.2,
-    "slug": "milk1"
+    "fats": 22.2,
+    "calories": 22.2,
+    "url-picture": "https://calorizator.ru/sites/default/files/imagecache/product_512/product/bombbar-keto-almond-nougat-vanilla.jpg\n",
+    "url-site": "https://calorizator.ru/product/sport/bombbar-keto-almond-nougat-vanilla"
   },
   {
-    "name": "Молоко 2",
+    "title": "Молоко 2",
     "protein": 22.2,
     "carbo": 22.2,
-    "fat": 22.2,
-    "energy": 22.2,
-    "slug": "milk2"
-  },
-  {
-    "name": "Молоко 2",
-    "protein": 33.2,
-    "carbo": 22.2,
-    "fat": 22.2,
-    "energy": 22.2,
-    "slug": "milk3"
+    "fats": 22.2,
+    "calories": 22.2,
+    "url-picture": "https://calorizator.ru/sites/default/files/imagecache/product_512/product/bombbar-keto-chocolate-parfait-almonds.jpg\n",
+    "url-site": "https://calorizator.ru/product/sport/bombbar-keto-chocolate-parfait-almonds"
   }
 ]

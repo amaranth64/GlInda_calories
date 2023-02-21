@@ -52,8 +52,8 @@ class FragmentProductCategory : Fragment(), CategoryAdapter.CategoryListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRcView()
-        mainViewModel.insertMenuName(MenuNameListItem(null, "Завтрак", 500.434,  1500.434,  300.434, 2342.999, "zavtrak"))
-        mainViewModel.insertMenuName(MenuNameListItem(null, "Ужин", 200.434,  3500.434,  200.434, 2142.999, "uzin"))
+        //mainViewModel.insertMenuName(MenuNameListItem(null, "Завтрак", 500.434,  1500.434,  300.434, 2342.999, "zavtrak"))
+        //mainViewModel.insertMenuName(MenuNameListItem(null, "Ужин", 200.434,  3500.434,  200.434, 2142.999, "uzin"))
     }
 
     private fun initRcView(){
@@ -70,7 +70,7 @@ class FragmentProductCategory : Fragment(), CategoryAdapter.CategoryListener {
     }
 
     companion object {
-
+        const val PROD_CAT_KEY = "product_category_key"
         @JvmStatic
         fun newInstance() = FragmentProductCategory()
     }
@@ -78,6 +78,7 @@ class FragmentProductCategory : Fragment(), CategoryAdapter.CategoryListener {
 
 
     override fun onClickItem(item: ItemCategoryClass) {
-        startActivity(Intent(context, ProductListActivity::class.java))
+        val i = Intent(context, ProductListActivity::class.java).putExtra(PROD_CAT_KEY, item.slug)
+        startActivity(i)
     }
 }

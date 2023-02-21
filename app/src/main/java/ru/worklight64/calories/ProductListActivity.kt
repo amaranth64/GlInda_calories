@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import ru.worklight64.calories.adapters.ProductListAdapter
 import ru.worklight64.calories.databinding.ActivityProductListBinding
 import ru.worklight64.calories.entities.ItemProductClass
+import ru.worklight64.calories.fragments.FragmentProductCategory
 import ru.worklight64.calories.utils.CommonConst
+import ru.worklight64.calories.utils.DataContainerHelper
 import ru.worklight64.calories.utils.JsonHelper
 
 class ProductListActivity : AppCompatActivity(), ProductListAdapter.ProductListListener {
@@ -53,9 +55,12 @@ class ProductListActivity : AppCompatActivity(), ProductListAdapter.ProductListL
     }
 
     private fun initRecyclerView(){
-        val param = intent.getStringExtra(CommonConst.INTENT_SLUG).toString()
+        val param = intent.getStringExtra(FragmentProductCategory.PROD_CAT_KEY).toString()
         val file = if (param.isEmpty()) "test.json" else "$param.json"
-        val itemList = JsonHelper.getProductList(file, this)
+
+        val itemList = DataContainerHelper.getContainer(this,param)
+
+        //val itemList = JsonHelper.getProductList(file, this)
         adapter = ProductListAdapter(this@ProductListActivity, pref)
         adapter.submitList(itemList)
         if (itemList.isEmpty()) form.tvEmpty.visibility = View.VISIBLE else form.tvEmpty.visibility = View.GONE

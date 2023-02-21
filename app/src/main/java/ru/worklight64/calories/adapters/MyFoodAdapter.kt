@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.worklight64.calories.R
 import ru.worklight64.calories.databinding.ItemMenuNameBinding
-import ru.worklight64.calories.databinding.TaskItemBinding
 import ru.worklight64.calories.entities.MenuNameListItem
 
 class MyFoodAdapter(private var listener: MyFoodListener, private val defPref: SharedPreferences):

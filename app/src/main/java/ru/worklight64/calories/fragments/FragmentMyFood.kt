@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import ru.worklight64.calories.MainApp
 import ru.worklight64.calories.R
 import ru.worklight64.calories.adapters.MyFoodAdapter
@@ -123,28 +122,6 @@ class FragmentMyFood : Fragment(), MyFoodAdapter.MyFoodListener {
                 mainViewModel.deleteMenuName(a.id!!)
             }
 
-
-
-
-            override fun onChildDraw(
-                c: Canvas,
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                dX: Float,
-                dY: Float,
-                actionState: Int,
-                isCurrentlyActive: Boolean
-            ) {
-
-                RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                    .addBackgroundColor(context?.getColor(R.color.red)!!)
-                    .addActionIcon(R.drawable.ic_delete_b)
-                    .setActionIconTint(context?.getColor(R.color.black)!!)
-                    .addSwipeRightLabel(context?.getString(R.string.delete))
-                    .create()
-                    .decorate()
-                super.onChildDraw( c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-            }
         })
 
 

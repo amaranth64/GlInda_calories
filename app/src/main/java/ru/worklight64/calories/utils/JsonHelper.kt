@@ -32,14 +32,18 @@ object JsonHelper {
 
         for (i in 0 until jsonArray.length()) {
             val obj = jsonArray.getJSONObject(i)
-            val name = obj.getString("name")
+            val name = obj.getString("title")
+            val desc = obj.getString("description")
+            val brand = obj.getString("brand")
+            val category = obj.getString("category")
             val protein = obj.getDouble("protein")
             val carbo = obj.getDouble("carbo")
-            val fat = obj.getDouble("fat")
-            val energy = obj.getDouble("energy")
-            val slug = obj.getString("slug")
+            val fat = obj.getDouble("fats")
+            val energy = obj.getDouble("calories")
+            val urlpicture = obj.getString("url-picture")
+            val urlsite = obj.getString("url-site")
 
-            val item = ItemProductClass(name, protein, carbo, fat, energy, slug)
+            val item = ItemProductClass(name, desc, brand, category, protein, carbo, fat, energy, urlpicture, urlsite)
             list.add(item)
         }
         return list

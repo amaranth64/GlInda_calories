@@ -11,18 +11,24 @@ class MainViewModel(database: MainDataBase): ViewModel() {
 
     //==============================================
     val allMenuNames: LiveData<List<MenuNameListItem>> = dao.getAllMenuName().asLiveData()
+
+    fun getMenuName(id: Int) : LiveData<List<MenuNameListItem>> {
+        return dao.getMenuName(id).asLiveData()
+    }
     fun insertMenuName(item: MenuNameListItem) = viewModelScope.launch {
-        dao.insertMenuName(item)
+        dao.insertMenu(item)
     }
     fun updateMenuName(item: MenuNameListItem) = viewModelScope.launch {
-        dao.updateMenuName(item)
+        dao.updateMenu(item)
     }
     fun deleteMenuName(id: Int) = viewModelScope.launch {
-        dao.deleteMenuName(id)
+        dao.deleteMenu(id)
     }
 
     //==============================================
-
+    fun getAllProductMenuList(menuID: Int): LiveData<List<MenuProductListItem>> {
+        return dao.getAllMenuProductListItems(menuID).asLiveData()
+    }
     fun insertProductToMenu(item: MenuProductListItem) = viewModelScope.launch {
         dao.insertMenuProductItem(item)
     }

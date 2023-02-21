@@ -82,7 +82,8 @@ class ProductListActivity : AppCompatActivity(), ProductListAdapter.ProductListL
 
     override fun addItem(item: ItemProductClass) {
        mainViewModel.allMenuNames.observe(this){
-        AddProductToMenuDialog.showDialog(this, this, item, it)
+           mainViewModel.allMenuNames.removeObservers(this)
+           AddProductToMenuDialog.showDialog(this, this, item, it)
        }
 
     }
@@ -95,6 +96,36 @@ class ProductListActivity : AppCompatActivity(), ProductListAdapter.ProductListL
                 slug,
                 count,
                 menuID))
+
+        // рассчитать новые значения для меню
+
+        mainViewModel.getMenuName(menuID).observe(this){currentMenu->
+
+            mainViewModel.getMenuName(menuID).removeObservers(this)
+
+            mainViewModel.getAllProductMenuList(menuID).observe(this){menu_list->
+                mainViewModel.getAllProductMenuList(menuID).removeObservers(this)
+                var protein = 0.0
+                var carbo = 0.0
+                var fat = 0.0
+                var kcal = 0.0
+                menu_list.forEach{menu_item->
+                    val i = DataContainerHelper.getContainer(this, menu_item.category)
+                    val product = i.find {
+                        it.slug ==  menu_item.slug
+                    }
+                    protein += product?.protein!!
+                    carbo += product?.carbo!!
+                    fat += product?.fat!!
+                    kcal += product?.energy!!
+                }
+                mainViewModel.updateMenuName(currentMenu[0].copy(protein = protein, carbo =carbo, fat = fat, energy =  kcal))
+
+            }
+
+        }
+
+
     }
 
 }

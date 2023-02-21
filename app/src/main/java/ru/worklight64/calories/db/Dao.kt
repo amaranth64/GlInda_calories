@@ -13,12 +13,15 @@ interface Dao {
     //===========================================
     @Query("SELECT * FROM menu_names_list")
     fun getAllMenuName(): Flow<List<MenuNameListItem>>
+
+    @Query("SELECT * FROM menu_names_list WHERE id IS :id")
+    fun getMenuName(id: Int): Flow<List<MenuNameListItem>>
     @Query("DELETE FROM menu_names_list WHERE id IS :id")
-    suspend fun deleteMenuName(id: Int)
+    suspend fun deleteMenu(id: Int)
     @Insert
-    suspend fun insertMenuName(item: MenuNameListItem)
+    suspend fun insertMenu(item: MenuNameListItem)
     @Update
-    suspend fun updateMenuName(item: MenuNameListItem)
+    suspend fun updateMenu(item: MenuNameListItem)
     //===========================================
     @Query("SELECT * FROM menu_product_list WHERE menu_id LIKE :menuID")
     fun getAllMenuProductListItems(menuID: Int): Flow<List<MenuProductListItem>>

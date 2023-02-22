@@ -1,9 +1,8 @@
 package ru.worklight64.calories.fragments
 
 
-import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Canvas
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import ru.worklight64.calories.MainApp
+import ru.worklight64.calories.ProductInMyFoodActivity
 import ru.worklight64.calories.R
 import ru.worklight64.calories.adapters.MyFoodAdapter
 import ru.worklight64.calories.adapters.RecyclerTouchListener
@@ -141,7 +141,8 @@ class FragmentMyFood : Fragment(), MyFoodAdapter.MyFoodListener {
 
 
     override fun onClickItem(item: MenuNameListItem) {
-
+        val intent = Intent(context, ProductInMyFoodActivity::class.java).putExtra(CommonConst.INTENT_MENU, item)
+        startActivity(intent)
     }
 
     override fun deleteItem(item: MenuNameListItem) {

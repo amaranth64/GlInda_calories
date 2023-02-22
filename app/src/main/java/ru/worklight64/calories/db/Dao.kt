@@ -26,11 +26,11 @@ interface Dao {
     @Query("SELECT * FROM menu_product_list WHERE menu_id LIKE :menuID")
     fun getAllMenuProductListItems(menuID: Int): Flow<List<MenuProductListItem>>
     @Insert
-    suspend fun insertMenuProductItem(item: MenuProductListItem)
+    suspend fun insertProductToMenu(item: MenuProductListItem)
     @Update
-    suspend fun updateMenuProductItem(item: MenuProductListItem)
+    suspend fun updateProductInMenu(item: MenuProductListItem)
     @Query("DELETE FROM menu_product_list WHERE id IS :id")
-    suspend fun deleteMenuProductItem(id: Int)
+    suspend fun deleteProductInMenu(id: Int)
     @Query("DELETE FROM menu_product_list WHERE menu_id LIKE :menuID")
-    suspend fun deleteMenuProductItems(menuID: Int)
+    suspend fun deleteAllProductsFromMenu(menuID: Int)
 }

@@ -6,12 +6,20 @@ import ru.worklight64.calories.entities.ItemProductClass
 object DataContainerHelper {
     private var productSport = ArrayList<ItemProductClass>()
 
-    fun getContainer(context: Context, slug: String):ArrayList<ItemProductClass>{
+    fun getContainer(context: Context, category: String):ArrayList<ItemProductClass>{
 
-        if (slug == CommonConst.SLUG_SPORT) return getSportProduct(context)
+        if (category == CommonConst.SLUG_SPORT) return getSportProduct(context)
 
         return ArrayList<ItemProductClass>()
     }
+
+    fun productInContainer(context: Context, category: String, slug: String): ItemProductClass{
+        val data = getContainer(context, category)
+        val product = data.find { it.slug == slug }
+        if (product != null) return product
+        return ItemProductClass(null,"","","","", 0.0,0.0,0.0,0.0,"","",0,0,"")
+    }
+
 
     private fun getSportProduct(context: Context):ArrayList<ItemProductClass>{
         if (productSport.isNotEmpty()) return productSport

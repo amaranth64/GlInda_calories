@@ -26,12 +26,16 @@ class MainViewModel(database: MainDataBase): ViewModel() {
     }
 
     //==============================================
-    fun getAllProductMenuList(menuID: Int): LiveData<List<MenuProductListItem>> {
+    fun allProductInMenuList(menuID: Int): LiveData<List<MenuProductListItem>> {
         return dao.getAllMenuProductListItems(menuID).asLiveData()
     }
     fun insertProductToMenu(item: MenuProductListItem) = viewModelScope.launch {
-        dao.insertMenuProductItem(item)
+        dao.insertProductToMenu(item)
     }
+    fun deleteProductInMenu(id: Int) = viewModelScope.launch {
+        dao.deleteProductInMenu(id)
+    }
+
 
 
     class MainViewModelFactory(private val database: MainDataBase): ViewModelProvider.Factory{

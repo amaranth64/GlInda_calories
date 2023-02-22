@@ -46,7 +46,7 @@ object JsonHelper {
             val weight = obj.getInt("weight")
             val slug = obj.getString("slug")
 
-            val item = ItemProductClass(name, desc, brand, category, protein, carbo, fat, energy, urlpicture, urlsite, type, weight, slug)
+            val item = ItemProductClass(null, name, desc, brand, category, protein, carbo, fat, energy, urlpicture, urlsite, type, weight, slug)
             list.add(item)
         }
         return list

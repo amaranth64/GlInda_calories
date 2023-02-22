@@ -3,6 +3,7 @@ package ru.worklight64.calories.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "menu_names_list")
 data class MenuNameListItem(
@@ -20,4 +21,4 @@ data class MenuNameListItem(
     val energy: Double,
     @ColumnInfo(name = "slug")
     val slug: String
-)
+): Serializable

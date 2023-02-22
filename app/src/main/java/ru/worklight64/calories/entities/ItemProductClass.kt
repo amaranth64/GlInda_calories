@@ -3,6 +3,7 @@ package ru.worklight64.calories.entities
 
 
 data class ItemProductClass(
+    val id: Int? = null,
     val title: String,
     val description: String,
     val brand: String,

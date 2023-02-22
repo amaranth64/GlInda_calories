@@ -37,8 +37,6 @@ class ProductListActivity : AppCompatActivity(), ProductListAdapter.ProductListL
         form = ActivityProductListBinding.inflate(layoutInflater)
         setContentView(form.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-
         initSharedPreferences()
         initRecyclerView()
     }
@@ -103,8 +101,8 @@ class ProductListActivity : AppCompatActivity(), ProductListAdapter.ProductListL
 
             mainViewModel.getMenuName(menuID).removeObservers(this)
 
-            mainViewModel.getAllProductMenuList(menuID).observe(this){menu_list->
-                mainViewModel.getAllProductMenuList(menuID).removeObservers(this)
+            mainViewModel.allProductInMenuList(menuID).observe(this){ menu_list->
+                mainViewModel.allProductInMenuList(menuID).removeObservers(this)
                 var protein = 0.0
                 var carbo = 0.0
                 var fat = 0.0
@@ -114,12 +112,15 @@ class ProductListActivity : AppCompatActivity(), ProductListAdapter.ProductListL
                     val product = i.find {
                         it.slug ==  menu_item.slug
                     }
-                    protein += product?.protein!!
-                    carbo += product?.carbo!!
-                    fat += product?.fat!!
-                    kcal += product?.energy!!
+                    if (product?.title!!.isNotEmpty()){
+                        protein += product.protein
+                        carbo += product.carbo
+                        fat += product.fat
+                        kcal += product.energy
+                    }
+
                 }
-                mainViewModel.updateMenuName(currentMenu[0].copy(protein = protein, carbo =carbo, fat = fat, energy =  kcal))
+                mainViewModel.updateMenuName(currentMenu[0].copy(protein = protein, carbo = carbo, fat = fat, energy =  kcal))
 
             }
 

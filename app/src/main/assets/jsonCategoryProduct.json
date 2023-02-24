@@ -1,31 +1,37 @@
 [
   {
     "name": "Молочные продукты",
+    "subcategory": "",
     "type": 1,
     "slug": "milk_dairy"
   },
   {
     "name": "Спортивное питание",
+    "subcategory": "subSportProduct",
     "type": 1,
     "slug": "sport"
   },
   {
     "name": "Колбасные изделия",
+    "subcategory": "",
     "type": 1,
     "slug": "kolbasny_izdelia"
   },
   {
     "name": "Первые блюда",
+    "subcategory": "",
     "type": 1,
     "slug": "pervy_bluda"
   },
   {
     "name": "Вторые блюда",
+    "subcategory": "",
     "type": 1,
     "slug": "vtoroy_bluda"
   },
   {
    "name": "Соки",
+    "subcategory": "",
    "type": 1,
    "slug": "soki"
  }

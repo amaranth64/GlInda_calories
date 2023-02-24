@@ -10,4 +10,5 @@ object CommonConst {
     const val TYPE_WEIGHT = 2
 
     const val SLUG_SPORT = "sport"
+    const val SLUG_MILK_DAIRY = "milk_dairy"
 }

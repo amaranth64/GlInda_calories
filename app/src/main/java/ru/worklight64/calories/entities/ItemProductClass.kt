@@ -15,6 +15,6 @@ data class ItemProductClass(
     val url_picture: String,
     val url_site: String,
     val type: Int,
-    val weight: Int,
+    val weight: Double,
     val slug: String
 )

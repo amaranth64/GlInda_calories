@@ -1,18 +1,22 @@
 package ru.worklight64.calories.adapters
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ru.worklight64.calories.entities.ItemCategoryClass
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import ru.worklight64.calories.R
 import ru.worklight64.calories.databinding.ItemCategoryBinding
+import ru.worklight64.calories.entities.ItemCategoryClass
+import ru.worklight64.calories.utils.JsonHelper
 
-class CategoryAdapter(private var listener: CategoryListener, private val defPref: SharedPreferences):
+
+class CategoryAdapter(private val context: Context,  private val defPref: SharedPreferences):
     ListAdapter<ItemCategoryClass, CategoryAdapter.ItemHolder>(ItemComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
@@ -20,20 +24,46 @@ class CategoryAdapter(private var listener: CategoryListener, private val defPre
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        holder.setData(getItem(position), listener, defPref)
+        holder.setData(getItem(position), defPref, context)
     }
 
     class ItemHolder(view: View): RecyclerView.ViewHolder(view){
         private val itemForm = ItemCategoryBinding.bind(view)
 
-        fun setData(item: ItemCategoryClass, listener: CategoryListener, defPref: SharedPreferences)= with(itemForm){
+        fun setData(item: ItemCategoryClass, defPref: SharedPreferences, context: Context)= with(itemForm){
+
+            if (item.subcategory.isNotEmpty()){
+                val adapter = SubCategoryAdapter(context)
+                listSubcat.adapter = adapter
+                listSubcat.layoutManager = LinearLayoutManager(context)
+                val data = JsonHelper.getSubCategoryList(item.subcategory + ".json", context)
+                adapter.submitList(data)
+
+
+                if (data.isNotEmpty()) ivExpand.visibility = View.VISIBLE else ivExpand.visibility = View.INVISIBLE
+            } else
+                ivExpand.visibility = View.INVISIBLE
+
+
             tvName.text = item.name
             Picasso.get()
                 .load("https://calorizator.ru/sites/default/files/imagecache/product_512/product/bombbar-keto-almond-nougat-vanilla.jpg")
                 .error(R.drawable.p_brokkoli)
                 .into(imageView)
+
             itemView.setOnClickListener {
-                listener.onClickItem(item)
+                if (item.expanded) {
+                    listSubcat.visibility = View.GONE
+                    item.expanded = false
+                } else {
+                    if (item.subcategory.isEmpty()){
+
+                    } else {
+                        listSubcat.visibility = View.VISIBLE
+                        item.expanded = true
+                    }
+
+                }
             }
         }
 
@@ -57,7 +87,6 @@ class CategoryAdapter(private var listener: CategoryListener, private val defPre
 
     }
 
-    interface CategoryListener{
-        fun onClickItem(item: ItemCategoryClass)
-    }
+
+
 }

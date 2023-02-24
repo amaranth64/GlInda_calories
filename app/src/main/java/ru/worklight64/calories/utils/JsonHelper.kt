@@ -6,10 +6,26 @@ import org.json.JSONArray
 import ru.worklight64.calories.R
 import ru.worklight64.calories.entities.ItemCategoryClass
 import ru.worklight64.calories.entities.ItemProductClass
+import ru.worklight64.calories.entities.ItemSubCategoryClass
 import java.io.IOException
 import java.io.InputStream
 
 object JsonHelper {
+
+    fun getSubCategoryList(fileName: String, context: Context):ArrayList<ItemSubCategoryClass>{
+        val list = ArrayList<ItemSubCategoryClass>()
+        val jsonArray = JSONArray(getJsonText(fileName, context))
+
+        for (i in 0 until jsonArray.length()) {
+            val obj = jsonArray.getJSONObject(i)
+            val name = obj.getString("name")
+            val slug = obj.getString("slug")
+
+            val item = ItemSubCategoryClass(name, slug)
+            list.add(item)
+        }
+        return list
+    }
 
     fun getCategoryList(fileName: String, context: Context):ArrayList<ItemCategoryClass>{
         val list = ArrayList<ItemCategoryClass>()
@@ -19,9 +35,10 @@ object JsonHelper {
             val obj = jsonArray.getJSONObject(i)
             val name = obj.getString("name")
             val slug = obj.getString("slug")
+            val subcategory = obj.getString("subcategory")
             val type = obj.getInt("type")
 
-            val item = ItemCategoryClass(name, slug, type)
+            val item = ItemCategoryClass(name, slug, subcategory, type)
             list.add(item)
         }
         return list
@@ -43,7 +60,7 @@ object JsonHelper {
             val urlpicture = obj.getString("url-picture")
             val urlsite = obj.getString("url-site")
             val type = obj.getInt("type")
-            val weight = obj.getInt("weight")
+            val weight = obj.getDouble("weight")
             val slug = obj.getString("slug")
 
             val item = ItemProductClass(null, name, desc, brand, category, protein, carbo, fat, energy, urlpicture, urlsite, type, weight, slug)

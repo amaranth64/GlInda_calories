@@ -1,32 +1,26 @@
 package ru.worklight64.calories.fragments
 
 
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import ru.worklight64.calories.MainApp
-import ru.worklight64.calories.ProductListActivity
 import ru.worklight64.calories.R
 import ru.worklight64.calories.adapters.CategoryAdapter
 import ru.worklight64.calories.databinding.FragmentProductBinding
 import ru.worklight64.calories.db.MainViewModel
-import ru.worklight64.calories.entities.ItemCategoryClass
-import ru.worklight64.calories.entities.MenuNameListItem
 import ru.worklight64.calories.utils.CommonConst
-
 import ru.worklight64.calories.utils.JsonHelper
 
 
-class FragmentProductCategory : Fragment(), CategoryAdapter.CategoryListener {
+class FragmentProductCategory : Fragment() {
     private lateinit var form: FragmentProductBinding
     private lateinit var pref: SharedPreferences
     private lateinit var adapter: CategoryAdapter
@@ -63,7 +57,7 @@ class FragmentProductCategory : Fragment(), CategoryAdapter.CategoryListener {
         else form.rcViewProduct.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
         val itemList = JsonHelper.getCategoryList("jsonCategoryProduct.json", requireContext())
-        adapter = CategoryAdapter(this@FragmentProductCategory, pref)
+        adapter = CategoryAdapter(requireContext(), pref )
         adapter.submitList(itemList)
         if (itemList.isEmpty()) form.tvEmpty.visibility = View.VISIBLE else form.tvEmpty.visibility = View.GONE
         form.rcViewProduct.adapter = adapter
@@ -77,8 +71,5 @@ class FragmentProductCategory : Fragment(), CategoryAdapter.CategoryListener {
 
 
 
-    override fun onClickItem(item: ItemCategoryClass) {
-        val i = Intent(context, ProductListActivity::class.java).putExtra(PROD_CAT_KEY, item.slug)
-        startActivity(i)
-    }
+
 }

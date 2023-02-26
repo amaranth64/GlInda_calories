@@ -9,6 +9,8 @@ class ProgressInteractor(var observer: Observer): Serializable {
 
     var product_item: ItemProductClass = ItemProductClass(null,"","","","", 0.0,0.0,0.0,0.0,"","",0,0.0,"")
     var category_slug: String = ""
+    var menuID = 0
+    var productWeight = 0.0
 
     fun setStep(s: String){
         str = s

@@ -63,11 +63,9 @@ class ProductListActivity : AppCompatActivity(), ProductListAdapter.ProductListL
 
     private fun initRecyclerView(){
         currentCategory = intent.getStringExtra(FragmentProductCategory.PROD_CAT_KEY).toString()
-        //val file = if (currentCategory.isEmpty()) "test.json" else "$currentCategory.json"
 
         val itemList = DataContainerHelper.getContainer(this, currentCategory)
 
-        //val itemList = JsonHelper.getProductList(file, this)
         adapter = ProductListAdapter(this@ProductListActivity, pref)
         adapter.submitList(itemList)
         if (itemList.isEmpty()) form.tvEmpty.visibility = View.VISIBLE else form.tvEmpty.visibility = View.GONE

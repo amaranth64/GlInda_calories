@@ -15,6 +15,9 @@
         android:theme="@style/Theme.GlInda_calories"
         tools:targetApi="31">
         <activity
+            android:name=".StepByStepActivity"
+            android:exported="false" />
+        <activity
             android:name=".ProductInMyFoodActivity"
             android:exported="false"
             android:theme="@style/WithActionBar" />

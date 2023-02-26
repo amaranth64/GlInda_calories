@@ -47,6 +47,7 @@ class FragmentProductCategory : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRcView()
         //mainViewModel.insertMenuName(MenuNameListItem(null, "Завтрак", 0.0,  0.0,  0.0, 0.0, "zavtrak"))
+        //mainViewModel.insertMenuName(MenuNameListItem(null, "Обед", 0.0,  0.0,  0.0, 0.0, "obed"))
         //mainViewModel.insertMenuName(MenuNameListItem(null, "Ужин", 0.0,  0.0,  0.0, 0.0, "uzin"))
     }
 

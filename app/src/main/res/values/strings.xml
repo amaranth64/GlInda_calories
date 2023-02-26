@@ -38,4 +38,10 @@
     <string name="add_to_menu">Добавить к меню:</string>
 
 
+    <string name="choose_category">Выбор\nкатегории</string>
+    <string name="choose_product">Выбор\nпродукта</string>
+    <string name="choose_weight">Размер\nпорции</string>
+    <string name="choose_add_to_menu">Добавить\nв меню</string>
+
+
 </resources>

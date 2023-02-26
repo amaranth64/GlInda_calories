@@ -13,10 +13,11 @@ import com.squareup.picasso.Picasso
 import ru.worklight64.calories.R
 import ru.worklight64.calories.databinding.ItemCategoryBinding
 import ru.worklight64.calories.entities.ItemCategoryClass
+import ru.worklight64.calories.progress.ItemClickListener
 import ru.worklight64.calories.utils.JsonHelper
 
 
-class CategoryAdapter(private val context: Context,  private val defPref: SharedPreferences):
+class CategoryAdapter(private val context: Context,  private val defPref: SharedPreferences, private val listener: ItemClickListener):
     ListAdapter<ItemCategoryClass, CategoryAdapter.ItemHolder>(ItemComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
@@ -24,16 +25,16 @@ class CategoryAdapter(private val context: Context,  private val defPref: Shared
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        holder.setData(getItem(position), defPref, context)
+        holder.setData(getItem(position), defPref, context, listener)
     }
 
     class ItemHolder(view: View): RecyclerView.ViewHolder(view){
         private val itemForm = ItemCategoryBinding.bind(view)
 
-        fun setData(item: ItemCategoryClass, defPref: SharedPreferences, context: Context)= with(itemForm){
+        fun setData(item: ItemCategoryClass, defPref: SharedPreferences, context: Context, listener: ItemClickListener)= with(itemForm){
 
             if (item.subcategory.isNotEmpty()){
-                val adapter = SubCategoryAdapter(context)
+                val adapter = SubCategoryAdapter(context, listener)
                 listSubcat.adapter = adapter
                 listSubcat.layoutManager = LinearLayoutManager(context)
                 val data = JsonHelper.getSubCategoryList(item.subcategory + ".json", context)
@@ -56,6 +57,7 @@ class CategoryAdapter(private val context: Context,  private val defPref: Shared
                     listSubcat.visibility = View.GONE
                     item.expanded = false
                 } else {
+
                     if (item.subcategory.isEmpty()){
 
                     } else {

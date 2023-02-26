@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(form.root)
 
         init()
-
     }
 
     private fun init(){

@@ -15,7 +15,7 @@ class StepByStepActivity : AppCompatActivity(), ProgressInteractor.Observer{
         form = ActivityStepByStepBinding.inflate(layoutInflater)
         setContentView(form.root)
         interactor = ProgressInteractor(this)
-        interactor.setStr("category")
+        interactor.setStep("category")
     }
 
     override fun observe(s: String) {

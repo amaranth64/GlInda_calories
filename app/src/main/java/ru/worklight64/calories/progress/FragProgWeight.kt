@@ -23,7 +23,7 @@ class FragProgWeight : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         form.bTst.setOnClickListener {
-            param1?.setStr("final")
+            param1?.setStep("final")
         }
     }
 

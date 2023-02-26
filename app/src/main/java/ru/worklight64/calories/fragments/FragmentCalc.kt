@@ -12,11 +12,12 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import ru.worklight64.calories.R
 import ru.worklight64.calories.adapters.CategoryAdapter
 import ru.worklight64.calories.databinding.FragmentProductBinding
+import ru.worklight64.calories.progress.ItemClickListener
 import ru.worklight64.calories.utils.CommonConst
 import ru.worklight64.calories.utils.JsonHelper
 
 
-class FragmentCalc : Fragment() {
+class FragmentCalc : Fragment(), ItemClickListener {
     private lateinit var form: FragmentProductBinding
     private lateinit var pref: SharedPreferences
     private lateinit var adapter: CategoryAdapter
@@ -48,7 +49,7 @@ class FragmentCalc : Fragment() {
         else form.rcViewProduct.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
         val itemList = JsonHelper.getCategoryList("jsonCategoryCalc.json", requireContext())
-        adapter = CategoryAdapter(requireContext(), pref)
+        adapter = CategoryAdapter(requireContext(), pref, this)
         adapter.submitList(itemList)
         if (itemList.isEmpty()) form.tvEmpty.visibility = View.VISIBLE else form.tvEmpty.visibility = View.GONE
         form.rcViewProduct.adapter = adapter
@@ -60,6 +61,9 @@ class FragmentCalc : Fragment() {
         fun newInstance() = FragmentCalc()
     }
 
+    override fun itemClick(a: Any) {
+
+    }
 
 
 }

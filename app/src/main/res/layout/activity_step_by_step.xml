@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -63,8 +64,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tvStep_3"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/tvStep_1"
-            app:layout_constraintStart_toEndtOf="@+id/tvStep_1" />
+            app:layout_constraintStart_toEndOf="@+id/tvStep_1" />
 
         <TextView
             android:id="@+id/tvStep_3"
@@ -78,8 +78,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tvStep_4"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/tvStep_2"
-            app:layout_constraintStart_toEndtOf="@+id/tvStep_2" />
+            app:layout_constraintStart_toEndOf="@+id/tvStep_2" />
 
         <TextView
             android:id="@+id/tvStep_4"
@@ -93,8 +92,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/tvStep_3"
-            app:layout_constraintStart_toEndtOf="@+id/tvStep_3" />
+            app:layout_constraintStart_toEndOf="@+id/tvStep_3"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

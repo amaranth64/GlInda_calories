@@ -2,6 +2,8 @@ package ru.worklight64.calories
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.viewModels
 import ru.worklight64.calories.databinding.ActivityStepByStepBinding
 import ru.worklight64.calories.db.MainViewModel
@@ -24,31 +26,51 @@ class StepByStepActivity : AppCompatActivity(), ProgressInteractor.Observer{
         super.onCreate(savedInstanceState)
         form = ActivityStepByStepBinding.inflate(layoutInflater)
         setContentView(form.root)
+        setSupportActionBar(form.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         interactor = ProgressInteractor(this)
         menuID = intent.getIntExtra(CommonConst.INTENT_MENU, 0)
         interactor.menuID = menuID
-        interactor.setStep("category")
+        interactor.setStep(ProgSteps.CATEGORY)
     }
 
-    override fun observe(s: String) {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        //menuInflater.inflate(R.menu.new_note_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home){
+            if (interactor.getCurrentStep() == ProgSteps.CATEGORY) finish()
+            else {
+                interactor.prev()
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+
+    override fun observe(s: ProgSteps) {
         when (s){
-            "category" -> {
+            ProgSteps.CATEGORY -> {
                 form.tvStep1.background =  resources.getDrawable(R.color.card_protein)
                 FragmentManager.setFragment(FragProgCategory.newInstance(interactor), this)
             }
-            "product" -> {
+            ProgSteps.PRODUCT -> {
                 form.tvStep2.setBackgroundColor(resources.getColor(R.color.card_protein))
                 FragmentManager.setFragment(FragProgProduct.newInstance(interactor), this)
             }
-            "weight" -> {
+            ProgSteps.WEIGHT -> {
                 form.tvStep3.setBackgroundColor(resources.getColor(R.color.card_protein))
                 FragmentManager.setFragment(FragProgWeight.newInstance(interactor), this)
             }
-            "final" -> {
+            ProgSteps.FINAL -> {
                 form.tvStep4.setBackgroundColor(resources.getColor(R.color.card_protein))
                 FragmentManager.setFragment(FragProgFinal.newInstance(interactor), this)
             }
-            "done" -> {
+            ProgSteps.DONE -> {
 
 
                 itemAddToDB()

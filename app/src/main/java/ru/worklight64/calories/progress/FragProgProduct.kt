@@ -50,7 +50,7 @@ class FragProgProduct : Fragment(), ProductListAdapter.ProductListListener {
             initSharedPreferences()
             initRecyclerView()
         } else {
-            param1?.setStep("category")
+            param1?.setStep(ProgSteps.CATEGORY)
         }
 
     }
@@ -87,7 +87,7 @@ class FragProgProduct : Fragment(), ProductListAdapter.ProductListListener {
     override fun onClickItem(item: ItemProductClass) {
 
         param1?.product_item = item
-        param1?.setStep("weight")
+        param1?.setStep(ProgSteps.WEIGHT)
     }
 
     override fun addItem(item: ItemProductClass) {

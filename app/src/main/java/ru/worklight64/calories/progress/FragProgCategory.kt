@@ -73,6 +73,6 @@ class FragProgCategory : Fragment(), ItemClickListener {
     override fun itemClick(a: Any) {
         val slug = a as String
         param1?.category_slug = slug
-        param1?.setStep("product")
+        param1?.setStep(ProgSteps.PRODUCT)
     }
 }

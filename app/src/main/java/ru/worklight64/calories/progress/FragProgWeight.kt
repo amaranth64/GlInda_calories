@@ -39,7 +39,7 @@ class FragProgWeight : Fragment() {
 
 
         if (param1?.product_item!!.title == "") {
-            param1?.setStep("product")
+            param1?.setStep(ProgSteps.PRODUCT)
             return
         }
         product = param1?.product_item!!
@@ -75,7 +75,7 @@ class FragProgWeight : Fragment() {
             if (product.type == CommonConst.TYPE_WEIGHT) param1?.productWeight = form.edPortion.text.toString().toDouble()
             if (product.type == CommonConst.TYPE_100) param1?.productWeight = form.spPortion.selectedItem.toString().toDouble()
 
-            param1?.setStep("final")
+            param1?.setStep(ProgSteps.FINAL)
         }
     }
     companion object {

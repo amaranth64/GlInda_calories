@@ -23,7 +23,7 @@ class FragProgFinal : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         form.bTst.setOnClickListener {
-            param1?.setStep("done")
+            param1?.setStep(ProgSteps.DONE)
         }
     }
 

@@ -6,18 +6,36 @@ import java.io.Serializable
 class ProgressInteractor(var observer: Observer): Serializable {
 
     private var str = ""
+    private val steps = ProgSteps.values()
+    private var currentStep = 0
+
 
     var product_item: ItemProductClass = ItemProductClass(null,"","","","", 0.0,0.0,0.0,0.0,"","",0,0.0,"")
     var category_slug: String = ""
     var menuID = 0
     var productWeight = 0.0
 
-    fun setStep(s: String){
-        str = s
-        observer.observe(str)
+    fun getCurrentStep():ProgSteps{
+        return ProgSteps.valueOf(steps[currentStep].toString())
+    }
+    fun next(){
+        currentStep++
+        if (currentStep >= (steps.size - 1))  currentStep = steps.size - 1
+        else observer.observe(ProgSteps.valueOf(steps[currentStep].toString()))
+    }
+
+    fun prev(){
+        currentStep--
+        if (currentStep < 0)  currentStep = 0
+        else observer.observe(ProgSteps.valueOf(steps[currentStep].toString()))
+    }
+
+    fun setStep(s: ProgSteps){
+        currentStep = s.ordinal
+        observer.observe(ProgSteps.valueOf(steps[currentStep].toString()))
     }
 
     interface Observer{
-        fun observe(s: String)
+        fun observe(s: ProgSteps)
     }
 }

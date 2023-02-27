@@ -40,8 +40,10 @@
     <string name="size_of_por">Размер порции в граммах:</string>
     <string name="size_of_gramm">Размер порции в граммах:</string>
 
-    <string name="add_to_menu">Добавить к меню:</string>
+    <string name="choose_menu">Выбрать меню:</string>
+    <string name="add_to_menu">Добавить в меню</string>
 
+    <string name="portion_in_menu">Значения на %1$.1f грамм продукта</string>
 
     <string name="choose_category">Выбор\nкатегории</string>
     <string name="choose_product">Выбор\nпродукта</string>

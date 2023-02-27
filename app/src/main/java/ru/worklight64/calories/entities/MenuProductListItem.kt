@@ -12,6 +12,8 @@ data class MenuProductListItem(
     val category: String,
     @ColumnInfo(name = "slug")
     val slug: String,
+    @ColumnInfo(name = "weight")
+    val weight: Double,
     @ColumnInfo(name = "count")
     val count: Int,
     @ColumnInfo(name = "menu_id")

@@ -18,6 +18,7 @@ import ru.worklight64.calories.R
 import ru.worklight64.calories.adapters.CategoryAdapter
 import ru.worklight64.calories.databinding.FragmentProductBinding
 import ru.worklight64.calories.db.MainViewModel
+import ru.worklight64.calories.entities.MenuNameListItem
 import ru.worklight64.calories.progress.ItemClickListener
 import ru.worklight64.calories.utils.CommonConst
 import ru.worklight64.calories.utils.JsonHelper
@@ -49,9 +50,9 @@ class FragmentProductCategory : Fragment(), ItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRcView()
-        //mainViewModel.insertMenuName(MenuNameListItem(null, "Завтрак", 0.0,  0.0,  0.0, 0.0, "zavtrak"))
-        //mainViewModel.insertMenuName(MenuNameListItem(null, "Обед", 0.0,  0.0,  0.0, 0.0, "obed"))
-        //mainViewModel.insertMenuName(MenuNameListItem(null, "Ужин", 0.0,  0.0,  0.0, 0.0, "uzin"))
+//        mainViewModel.insertMenuName(MenuNameListItem(null, "Завтрак", 0.0,  0.0,  0.0, 0.0, "zavtrak"))
+//        mainViewModel.insertMenuName(MenuNameListItem(null, "Обед", 0.0,  0.0,  0.0, 0.0, "obed"))
+//        mainViewModel.insertMenuName(MenuNameListItem(null, "Ужин", 0.0,  0.0,  0.0, 0.0, "uzin"))
     }
 
     private fun initRcView(){

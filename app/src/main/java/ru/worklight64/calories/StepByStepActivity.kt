@@ -83,7 +83,8 @@ class StepByStepActivity : AppCompatActivity(), ProgressInteractor.Observer{
 
         val product = interactor.product_item
         val slug: String = product.slug
-        val count: Int = interactor.productWeight.toInt()
+        val weight: Double = interactor.product_weight.toDouble()
+        val count: Int = interactor.product_count.toInt()
         val menuID: Int = interactor.menuID
 
         mainViewModel.insertProductToMenu(
@@ -91,6 +92,7 @@ class StepByStepActivity : AppCompatActivity(), ProgressInteractor.Observer{
                 null,
                 interactor.category_slug,
                 slug,
+                weight,
                 count,
                 menuID)
         )
@@ -108,15 +110,20 @@ class StepByStepActivity : AppCompatActivity(), ProgressInteractor.Observer{
                 var fat = 0.0
                 var kcal = 0.0
                 menu_list.forEach{menu_item->
+
                     val i = DataContainerHelper.getContainer(this, menu_item.category)
+
                     val product = i.find {
                         it.slug ==  menu_item.slug
                     }
+
                     if (product?.title!!.isNotEmpty()){
-                        protein += product.protein
-                        carbo += product.carbo
-                        fat += product.fat
-                        kcal += product.energy
+
+                        protein += product.protein * menu_item.weight / 100
+                        carbo += product.carbo * menu_item.weight / 100
+                        fat += product.fat * menu_item.weight / 100
+                        kcal += product.energy * menu_item.weight / 100
+
                     }
 
                 }

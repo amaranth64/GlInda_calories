@@ -5,7 +5,6 @@ import java.io.Serializable
 
 class ProgressInteractor(var observer: Observer): Serializable {
 
-    private var str = ""
     private val steps = ProgSteps.values()
     private var currentStep = 0
 
@@ -13,7 +12,8 @@ class ProgressInteractor(var observer: Observer): Serializable {
     var product_item: ItemProductClass = ItemProductClass(null,"","","","", 0.0,0.0,0.0,0.0,"","",0,0.0,"")
     var category_slug: String = ""
     var menuID = 0
-    var productWeight = 0.0
+    var product_weight = 0.0
+    var product_count= 0
 
     fun getCurrentStep():ProgSteps{
         return ProgSteps.valueOf(steps[currentStep].toString())

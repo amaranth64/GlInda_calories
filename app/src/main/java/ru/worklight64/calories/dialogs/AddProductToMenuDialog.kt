@@ -51,12 +51,18 @@ object AddProductToMenuDialog {
 
 
         form.bAdd.setOnClickListener {
+            var weight = 0.0
             var count = 0
-            if (item.type == CommonConst.TYPE_WEIGHT) count = form.edPortion.text.toString().toInt()
-            if (item.type == CommonConst.TYPE_100) count = form.spPortion.selectedItem.toString().toInt()
+            if (item.type == CommonConst.TYPE_WEIGHT) {
+                weight = form.edPortion.text.toString().toDouble()
+            }
+            if (item.type == CommonConst.TYPE_100) {
+                weight = item.weight * form.spPortion.selectedItem.toString().toInt()
+                count = form.spPortion.selectedItem.toString().toInt()
+            }
             val menuID = menu[form.spMenuName.selectedItemId.toInt()].id
             if (menuID != null) {
-                listener.onAdd(item.slug, count, menuID)
+                listener.onAdd(item.slug, weight, count, menuID)
             }
             dialog?.dismiss()
         }
@@ -72,7 +78,7 @@ object AddProductToMenuDialog {
     }
 
     interface Listener{
-        fun onAdd(slug:String, count: Int, menuID: Int)
+        fun onAdd(slug:String, weight: Double, count: Int, menuID: Int)
     }
 
 }

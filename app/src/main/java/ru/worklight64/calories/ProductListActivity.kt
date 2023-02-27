@@ -84,12 +84,13 @@ class ProductListActivity : AppCompatActivity(), ProductListAdapter.ProductListL
 
     }
 
-    override fun onAdd(slug: String, count: Int, menuID: Int) {
+    override fun onAdd(slug: String, weight: Double, count: Int, menuID: Int) {
         mainViewModel.insertProductToMenu(
             MenuProductListItem(
                 null,
                 currentCategory,
                 slug,
+                weight,
                 count,
                 menuID))
 
@@ -111,10 +112,10 @@ class ProductListActivity : AppCompatActivity(), ProductListAdapter.ProductListL
                         it.slug ==  menu_item.slug
                     }
                     if (product?.title!!.isNotEmpty()){
-                        protein += product.protein
-                        carbo += product.carbo
-                        fat += product.fat
-                        kcal += product.energy
+                        protein += product.protein * menu_item.weight / 100
+                        carbo += product.carbo * menu_item.weight / 100
+                        fat += product.fat * menu_item.weight / 100
+                        kcal += product.energy * menu_item.weight / 100
                     }
 
                 }

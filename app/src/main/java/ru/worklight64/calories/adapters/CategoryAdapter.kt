@@ -62,7 +62,7 @@ class CategoryAdapter(private val context: Context,  private val defPref: Shared
                 } else {
 
                     if (item.subcategory.isEmpty()){
-
+                        listener.itemClick(item.slug)
                     } else {
                         listSubcat.visibility = View.VISIBLE
                         item.expanded = true

@@ -1,6 +1,5 @@
 package ru.worklight64.calories.progress
 
-import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -66,14 +65,20 @@ class FragProgWeight : Fragment() {
         if (product.type == CommonConst.TYPE_100) form.edPortion.visibility = View.GONE
 
         val spinnerPorItem = arrayListOf<Int>(1,2,3,4,5)
-        val adapterPor = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, spinnerPorItem)
+        val adapterPor = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, spinnerPorItem)
         adapterPor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         form.spPortion.adapter = adapterPor
 
         form.bAdd.setOnClickListener {
 
-            if (product.type == CommonConst.TYPE_WEIGHT) param1?.productWeight = form.edPortion.text.toString().toDouble()
-            if (product.type == CommonConst.TYPE_100) param1?.productWeight = form.spPortion.selectedItem.toString().toDouble()
+            if (product.type == CommonConst.TYPE_WEIGHT) {
+                param1?.product_weight = form.edPortion.text.toString().toDouble()
+                param1?.product_count = 0
+            }
+            if (product.type == CommonConst.TYPE_100) {
+                param1?.product_weight = product.weight * form.spPortion.selectedItem.toString().toDouble()
+                param1?.product_count = form.spPortion.selectedItem.toString().toInt()
+            }
 
             param1?.setStep(ProgSteps.FINAL)
         }

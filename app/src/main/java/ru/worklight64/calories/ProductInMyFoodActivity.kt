@@ -61,10 +61,10 @@ class ProductInMyFoodActivity : AppCompatActivity(), ProductInMenuAdapter.Produc
             menu_item.forEach {
                 val product = DataContainerHelper.productInContainer(this, it.category, it.slug)
                 items.add(product.copy(id = it.id))
-                protein += product?.protein!!
-                carbo += product?.carbo!!
-                fat += product?.fat!!
-                kcal += product?.energy!!
+                protein += product?.protein!! * it.weight / 100
+                carbo += product?.carbo!! * it.weight / 100
+                fat += product?.fat!! * it.weight / 100
+                kcal += product?.energy!! * it.weight / 100
             }
 
             mainViewModel.updateMenuName(

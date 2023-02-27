@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import ru.worklight64.calories.R
 import ru.worklight64.calories.databinding.FragProgFinalBinding
 
 private const val ARG_PARAM1 = "param1"
@@ -22,7 +23,28 @@ class FragProgFinal : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        form.bTst.setOnClickListener {
+
+        val item = param1?.product_item!!
+        val weight = param1?.product_weight!!
+        val count = param1?.product_count!!
+
+        val p = weight * item.protein / 100
+        val c = weight * item.carbo / 100
+        val f = weight * item.fat / 100
+        val e = weight * item.energy / 100
+
+
+
+        form.tvProtein100.text = "%.1f".format(p)
+        form.tvCarbo100.text = "%.1f".format(c)
+        form.tvFat100.text = "%.1f".format(f)
+        form.tvEnergy100.text = "%.1f".format(e)
+
+        var str = resources.getString(R.string.portion_in_menu).format(weight)
+        if (count != 0) str += "($count шт.)"
+        form.tvCaptionOnPortion.text = str
+
+        form.bAdd.setOnClickListener {
             param1?.setStep(ProgSteps.DONE)
         }
     }

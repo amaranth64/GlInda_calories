@@ -10,18 +10,17 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import ru.worklight64.calories.R
-import ru.worklight64.calories.adapters.ProductListAdapter
+import ru.worklight64.calories.adapters.ProductAddAdapter
 import ru.worklight64.calories.databinding.FragProgProductBinding
 import ru.worklight64.calories.entities.ItemProductClass
-import ru.worklight64.calories.fragments.FragmentProductCategory
 import ru.worklight64.calories.utils.CommonConst
 import ru.worklight64.calories.utils.DataContainerHelper
 
 private const val ARG_PARAM1 = "param1"
 
-class FragProgProduct : Fragment(), ProductListAdapter.ProductListListener {
+class FragProgProduct : Fragment(), ItemClickListener {
     private lateinit var form: FragProgProductBinding
-    private lateinit var adapter: ProductListAdapter
+    private lateinit var adapter: ProductAddAdapter
     private lateinit var pref: SharedPreferences
     private var param1: ProgressInteractor? = null
 
@@ -46,7 +45,7 @@ class FragProgProduct : Fragment(), ProductListAdapter.ProductListListener {
         super.onViewCreated(view, savedInstanceState)
 
         category_slug = param1?.category_slug.toString()
-        if (!category_slug.isNullOrEmpty()) {
+        if (category_slug.isNotEmpty()) {
             initSharedPreferences()
             initRecyclerView()
         } else {
@@ -66,7 +65,7 @@ class FragProgProduct : Fragment(), ProductListAdapter.ProductListListener {
 
         val itemList = DataContainerHelper.getContainer(requireContext(), category_slug)
 
-        adapter = ProductListAdapter(this@FragProgProduct, pref)
+        adapter = ProductAddAdapter(this@FragProgProduct, pref)
         adapter.submitList(itemList)
         if (itemList.isEmpty()) form.tvEmpty.visibility = View.VISIBLE else form.tvEmpty.visibility = View.GONE
         form.rcView.adapter = adapter
@@ -82,15 +81,9 @@ class FragProgProduct : Fragment(), ProductListAdapter.ProductListListener {
                 }
             }
     }
-
-
-    override fun onClickItem(item: ItemProductClass) {
-
+    override fun itemClick(a: Any) {
+        val item = a as ItemProductClass
         param1?.product_item = item
         param1?.setStep(ProgSteps.WEIGHT)
-    }
-
-    override fun addItem(item: ItemProductClass) {
-
     }
 }

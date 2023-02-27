@@ -54,8 +54,11 @@ class CategoryAdapter(private val context: Context,  private val defPref: Shared
 
             itemView.setOnClickListener {
                 if (item.expanded) {
+
                     listSubcat.visibility = View.GONE
                     item.expanded = false
+                    ivExpand.setImageResource(R.drawable.ic_plus_b)
+
                 } else {
 
                     if (item.subcategory.isEmpty()){
@@ -63,6 +66,7 @@ class CategoryAdapter(private val context: Context,  private val defPref: Shared
                     } else {
                         listSubcat.visibility = View.VISIBLE
                         item.expanded = true
+                        ivExpand.setImageResource(R.drawable.ic_minus_b)
                     }
 
                 }

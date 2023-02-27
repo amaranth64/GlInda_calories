@@ -41,7 +41,7 @@ class FragProgFinal : Fragment() {
         form.tvEnergy100.text = "%.1f".format(e)
 
         var str = resources.getString(R.string.portion_in_menu).format(weight)
-        if (count != 0) str += "($count шт.)"
+        if (count != 0) str += " ($count шт.)"
         form.tvCaptionOnPortion.text = str
 
         form.bAdd.setOnClickListener {

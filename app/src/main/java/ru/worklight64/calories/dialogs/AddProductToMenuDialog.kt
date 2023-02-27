@@ -2,8 +2,11 @@ package ru.worklight64.calories.dialogs
 
 import android.app.AlertDialog
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.squareup.picasso.Picasso
 import ru.worklight64.calories.R
@@ -34,6 +37,22 @@ object AddProductToMenuDialog {
         form.tvFat100.text = "%.1f".format(item.fat)
         form.tvEnergy100.text = "%.1f".format(item.energy)
 
+        if (item.type != 1) {
+            form.linearCalories1por.visibility = View.GONE
+            form.tvCaption1por.visibility = View.GONE
+        }
+
+        var str = context.getString(R.string.txt_at1por).format(item.weight)
+        //str += " (%.1f грамм)".format(product.weight)
+
+        form.tvCaption1por.text = str
+        form.tvProtein1por.text = "%.1f".format(item.protein * item.weight/100)
+        form.tvCarbo1por.text = "%.1f".format(item.carbo * item.weight/100)
+        form.tvFat1por.text = "%.1f".format(item.fat * item.weight/100)
+        form.tvEnergy1por.text = "%.1f".format(item.energy * item.weight/100)
+
+
+
         if (item.type == CommonConst.TYPE_WEIGHT) form.spPortion.visibility = View.GONE
         if (item.type == CommonConst.TYPE_100) form.edPortion.visibility = View.GONE
 
@@ -50,7 +69,48 @@ object AddProductToMenuDialog {
         form.spMenuName.adapter = adapter
 
 
+        form.edPortion.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val weight = s.toString().toInt()
+                val protein = item.protein * weight / 100
+                val carbo = item.carbo *  weight / 100
+                val fat = item.fat * weight / 100
+                val kcal = item.energy * weight / 100
+
+                form.tvProteinPor.text = "%.1f".format(protein)
+                form.tvCarboPor.text = "%.1f".format(carbo)
+                form.tvFatPor.text = "%.1f".format(fat)
+                form.tvEnergyPor.text = "%.1f".format(kcal)
+            }
+        })
+
+        form.spPortion.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val protein = item.protein * item.weight * spinnerPorItem[position]/ 100
+                val carbo = item.carbo * item.weight  * spinnerPorItem[position]/ 100
+                val fat = item.fat * item.weight  * spinnerPorItem[position]/ 100
+                val kcal = item.energy * item.weight  * spinnerPorItem[position]/ 100
+
+                form.tvProteinPor.text = "%.1f".format(protein)
+                form.tvCarboPor.text = "%.1f".format(carbo)
+                form.tvFatPor.text = "%.1f".format(fat)
+                form.tvEnergyPor.text = "%.1f".format(kcal)
+
+            }
+        }
+
         form.bAdd.setOnClickListener {
+
+            if (form.edPortion.text.isEmpty()) return@setOnClickListener
+
             var weight = 0.0
             var count = 0
             if (item.type == CommonConst.TYPE_WEIGHT) {

@@ -31,14 +31,14 @@
     <string name="caption">Caption</string>
     <string name="text_hint">Text hint</string>
     <string name="button">Button</string>
-    <string name="txt_at100gramm">на 100 грамм продукта:</string>
-    <string name="txt_atporgramm">в заданной порции:</string>
-    <string name="txt_at1por">на одну порцию:</string>
+    <string name="txt_at100gramm">на 100 грамм продукта</string>
+    <string name="txt_atporgramm">в заданной порции</string>
+    <string name="txt_at1por">на одну порцию (%.1f грамм)</string>
     <string name="add">Добавить</string>
     <string name="set_weight">Задать вес</string>
     <string name="cancel">отмена</string>
-    <string name="size_of_por">Размер порции в граммах:</string>
-    <string name="size_of_gramm">Размер порции в граммах:</string>
+    <string name="size_of_por">Размер порции в граммах</string>
+    <string name="size_of_gramm">Размер порции в граммах</string>
 
     <string name="choose_menu">Выбрать меню:</string>
     <string name="add_to_menu">Добавить в меню</string>

@@ -1,12 +1,16 @@
 package ru.worklight64.calories.progress
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
+import ru.worklight64.calories.R
 import ru.worklight64.calories.databinding.FragProgWeightBinding
 import ru.worklight64.calories.entities.ItemProductClass
 import ru.worklight64.calories.utils.CommonConst
@@ -61,6 +65,20 @@ class FragProgWeight : Fragment() {
         form.tvFat100.text = "%.1f".format(product.fat)
         form.tvEnergy100.text = "%.1f".format(product.energy)
 
+        if (product.type != 1) {
+            form.linearCalories1por.visibility = View.GONE
+            form.tvCaption1por.visibility = View.GONE
+        }
+
+        var str = resources.getString(R.string.txt_at1por).format(product.weight)
+        //str += " (%.1f грамм)".format(product.weight)
+
+        form.tvCaption1por.text = str
+        form.tvProtein1por.text = "%.1f".format(product.protein * product.weight/100)
+        form.tvCarbo1por.text = "%.1f".format(product.carbo * product.weight/100)
+        form.tvFat1por.text = "%.1f".format(product.fat * product.weight/100)
+        form.tvEnergy1por.text = "%.1f".format(product.energy * product.weight/100)
+
         if (product.type == CommonConst.TYPE_WEIGHT) form.spPortion.visibility = View.GONE
         if (product.type == CommonConst.TYPE_100) form.edPortion.visibility = View.GONE
 
@@ -72,6 +90,8 @@ class FragProgWeight : Fragment() {
         form.bAdd.setOnClickListener {
 
             if (product.type == CommonConst.TYPE_WEIGHT) {
+                if (form.edPortion.text.isEmpty()) return@setOnClickListener
+
                 param1?.product_weight = form.edPortion.text.toString().toDouble()
                 param1?.product_count = 0
             }
@@ -82,6 +102,43 @@ class FragProgWeight : Fragment() {
 
             param1?.setStep(ProgSteps.FINAL)
         }
+
+        form.edPortion.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val weight = s.toString().toInt()
+                val protein = product.protein * weight / 100
+                val carbo = product.carbo *  weight / 100
+                val fat = product.fat * weight / 100
+                val kcal = product.energy * weight / 100
+
+                form.tvProteinPor.text = "%.1f".format(protein)
+                form.tvCarboPor.text = "%.1f".format(carbo)
+                form.tvFatPor.text = "%.1f".format(fat)
+                form.tvEnergyPor.text = "%.1f".format(kcal)
+            }
+        })
+
+        form.spPortion.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val protein = product.protein * product.weight * spinnerPorItem[position]/ 100
+                val carbo = product.carbo * product.weight  * spinnerPorItem[position]/ 100
+                val fat = product.fat * product.weight  * spinnerPorItem[position]/ 100
+                val kcal = product.energy * product.weight  * spinnerPorItem[position]/ 100
+
+                form.tvProteinPor.text = "%.1f".format(protein)
+                form.tvCarboPor.text = "%.1f".format(carbo)
+                form.tvFatPor.text = "%.1f".format(fat)
+                form.tvEnergyPor.text = "%.1f".format(kcal)
+
+            }
+        }
+
     }
     companion object {
         @JvmStatic

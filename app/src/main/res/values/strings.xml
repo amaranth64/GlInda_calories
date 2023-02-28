@@ -49,5 +49,7 @@
     <string name="choose_product">Выбор\nпродукта</string>
     <string name="choose_weight">Размер\nпорции</string>
     <string name="choose_add_to_menu">Добавить\nв меню</string>
+    <string name="enter_caption">Введите название</string>
+    <string name="menu_name">Название меню</string>
 
 </resources>

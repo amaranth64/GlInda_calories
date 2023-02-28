@@ -22,13 +22,15 @@ import ru.worklight64.calories.adapters.MyFoodAdapter
 import ru.worklight64.calories.adapters.RecyclerTouchListener
 import ru.worklight64.calories.adapters.RecyclerTouchListener.OnRowClickListener
 import ru.worklight64.calories.adapters.RecyclerTouchListener.OnSwipeOptionsClickListener
+import ru.worklight64.calories.databinding.EditDialogBinding
 import ru.worklight64.calories.databinding.FragmentMyfoodBinding
 import ru.worklight64.calories.db.MainViewModel
+import ru.worklight64.calories.dialogs.EditDialog
 import ru.worklight64.calories.entities.MenuNameListItem
 import ru.worklight64.calories.utils.CommonConst
 
 
-class FragmentMyFood : Fragment(), MyFoodAdapter.MyFoodListener {
+class FragmentMyFood : Fragment(), EditDialog.Listener {
     private lateinit var form: FragmentMyfoodBinding
     private lateinit var pref: SharedPreferences
     private lateinit var adapter: MyFoodAdapter
@@ -66,17 +68,18 @@ class FragmentMyFood : Fragment(), MyFoodAdapter.MyFoodListener {
         else form.rcViewProduct.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
 
-        adapter = MyFoodAdapter(this@FragmentMyFood, pref)
+        adapter = MyFoodAdapter( pref)
         form.rcViewProduct.adapter = adapter
+
+        form.bAddMenuName.setOnClickListener{
+            EditDialog.showDialog(requireContext(),this@FragmentMyFood, getString(R.string.menu_name), getString(R.string.enter_caption), getString(R.string.add))
+        }
 
         val touchListener = RecyclerTouchListener(activity, form.rcViewProduct)
         touchListener.setClickable(object : OnRowClickListener {
                 override fun onRowClicked(position: Int) {
-                    Toast.makeText(
-                        context,
-                        "taskList.get(position).getName()",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    val intent = Intent(context, ProductInMyFoodActivity::class.java).putExtra(CommonConst.INTENT_MENU, adapter.currentList[position])
+                    startActivity(intent)
                 }
 
                 override fun onIndependentViewClicked(independentViewID: Int, position: Int) {}
@@ -139,17 +142,16 @@ class FragmentMyFood : Fragment(), MyFoodAdapter.MyFoodListener {
         fun newInstance() = FragmentMyFood()
     }
 
-
-    override fun onClickItem(item: MenuNameListItem) {
-        val intent = Intent(context, ProductInMyFoodActivity::class.java).putExtra(CommonConst.INTENT_MENU, item)
-        startActivity(intent)
-    }
-
-    override fun deleteItem(item: MenuNameListItem) {
-        mainViewModel.deleteMenuName(item.id!!)
-    }
-
-    override fun editItem(item: MenuNameListItem) {
-
+    override fun onClick(newListName: String) { // dialog
+        mainViewModel.insertMenuName(
+            MenuNameListItem(
+                null,
+                newListName,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+            )
+        )
     }
 }

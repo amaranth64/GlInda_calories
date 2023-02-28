@@ -9,8 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import ru.worklight64.calories.R
-
-import ru.worklight64.calories.databinding.ItemProductBinding
+import ru.worklight64.calories.databinding.ItemProductMenuBinding
 import ru.worklight64.calories.entities.ItemProductClass
 
 class ProductInMenuAdapter(private var listener: ProductInMenuListener, private val defPref: SharedPreferences):
@@ -25,7 +24,7 @@ class ProductInMenuAdapter(private var listener: ProductInMenuListener, private 
     }
 
     class ItemHolder(view: View): RecyclerView.ViewHolder(view){
-        private val itemForm = ItemProductBinding.bind(view)
+        private val itemForm = ItemProductMenuBinding.bind(view)
 
         fun setData(item: ItemProductClass, listener: ProductInMenuListener, defPref: SharedPreferences)= with(itemForm){
             itemForm.tvName.text = item.title
@@ -52,7 +51,7 @@ class ProductInMenuAdapter(private var listener: ProductInMenuListener, private 
             fun create(parent:ViewGroup):ItemHolder{
                 return ItemHolder(
                     LayoutInflater.from(parent.context).inflate(
-                    R.layout.item_product, parent, false))
+                    R.layout.item_product_menu, parent, false))
             }
         }
     }

@@ -41,6 +41,11 @@ class ProductInMyFoodActivity : AppCompatActivity(), ProductInMenuAdapter.Produc
         initSharedPreferences()
         initRecyclerView()
         observer()
+
+        form.bAddProduct.setOnClickListener {
+            val i = Intent(this, StepByStepActivity::class.java).putExtra(CommonConst.INTENT_MENU, menu.id)
+            startActivity(i)
+        }
     }
 
     private fun <T : Serializable?> getSerializable(intent: Intent, key: String, className: Class<T>): T {

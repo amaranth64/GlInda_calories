@@ -9,7 +9,7 @@ class ProgressInteractor(var observer: Observer): Serializable {
     private var currentStep = 0
 
 
-    var product_item: ItemProductClass = ItemProductClass(null,"","","","", 0.0,0.0,0.0,0.0,"","",0,0.0,"")
+    var product_item: ItemProductClass = ItemProductClass(null,"","","","", 0.0,0.0,0.0,0.0,"","",0,0.0,0,"")
     var category_slug: String = ""
     var menuID = 0
     var product_weight = 0.0

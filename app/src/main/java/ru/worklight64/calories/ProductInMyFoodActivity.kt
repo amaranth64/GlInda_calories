@@ -17,17 +17,20 @@ import ru.worklight64.calories.adapters.ProductInMenuAdapter
 import ru.worklight64.calories.adapters.RecyclerTouchListener
 import ru.worklight64.calories.databinding.ActivityProductInMyfoodBinding
 import ru.worklight64.calories.db.MainViewModel
+import ru.worklight64.calories.dialogs.EditProductInMenuDialog
 import ru.worklight64.calories.entities.ItemProductClass
 import ru.worklight64.calories.entities.MenuNameListItem
+import ru.worklight64.calories.entities.MenuProductListItem
 import ru.worklight64.calories.utils.CommonConst
 import ru.worklight64.calories.utils.DataContainerHelper
 import java.io.Serializable
 
-class ProductInMyFoodActivity : AppCompatActivity(), ProductInMenuAdapter.ProductInMenuListener {
+class ProductInMyFoodActivity : AppCompatActivity(), EditProductInMenuDialog.Listener{
     lateinit var form: ActivityProductInMyfoodBinding
     private lateinit var menu:MenuNameListItem
     private lateinit var adapter: ProductInMenuAdapter
     private lateinit var pref: SharedPreferences
+    private lateinit var productsInMenu: ArrayList<MenuProductListItem>
 
     private val mainViewModel: MainViewModel by viewModels{
         MainViewModel.MainViewModelFactory((applicationContext as MainApp).database)
@@ -58,6 +61,7 @@ class ProductInMyFoodActivity : AppCompatActivity(), ProductInMenuAdapter.Produc
     private fun observer() {
         menu = getSerializable(intent, CommonConst.INTENT_MENU, MenuNameListItem::class.java)
         mainViewModel.allProductInMenuList(menu.id!!).observe(this) { menu_item ->
+            productsInMenu = menu_item as ArrayList<MenuProductListItem>
             val items = ArrayList<ItemProductClass>()
             var protein = 0.0
             var carbo = 0.0
@@ -65,11 +69,19 @@ class ProductInMyFoodActivity : AppCompatActivity(), ProductInMenuAdapter.Produc
             var kcal = 0.0
             menu_item.forEach {
                 val product = DataContainerHelper.productInContainer(this, it.category, it.slug)
-                items.add(product.copy(id = it.id))
-                protein += product?.protein!! * it.weight / 100
-                carbo += product?.carbo!! * it.weight / 100
-                fat += product?.fat!! * it.weight / 100
-                kcal += product?.energy!! * it.weight / 100
+
+                val p = product?.protein!! * it.weight / 100
+                val c = product?.carbo!! * it.weight / 100
+                val f = product?.fat!! * it.weight / 100
+                val e = product?.energy!! * it.weight / 100
+
+                items.add(product.copy(id = it.id, protein = p, carbo = c, fat = f, energy = e, weight = it.weight, count = it.count))
+
+                protein += p
+                carbo += c
+                fat += f
+                kcal += e
+
             }
 
             mainViewModel.updateMenuName(
@@ -95,7 +107,7 @@ class ProductInMyFoodActivity : AppCompatActivity(), ProductInMenuAdapter.Produc
     }
 
     private fun initRecyclerView(){
-        adapter = ProductInMenuAdapter(this@ProductInMyFoodActivity, pref)
+        adapter = ProductInMenuAdapter(pref)
         form.rcViewProduct.adapter = adapter
 
         val touchListener = RecyclerTouchListener(this, form.rcViewProduct)
@@ -119,11 +131,10 @@ class ProductInMyFoodActivity : AppCompatActivity(), ProductInMenuAdapter.Produc
                             mainViewModel.deleteProductInMenu(a.id!!)
                         }
                         R.id.edit_task -> {
-                            Toast.makeText(
-                                applicationContext,
-                                "Edit",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            val a = adapter.currentList[position]
+                            val productInMenu = productsInMenu.find { it.slug == a.slug }
+                            if (productInMenu != null)
+                            EditProductInMenuDialog.showDialog(this@ProductInMyFoodActivity, this@ProductInMyFoodActivity, a, productInMenu)
                         }
 
                     }
@@ -145,11 +156,8 @@ class ProductInMyFoodActivity : AppCompatActivity(), ProductInMenuAdapter.Produc
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onClickItem(item: ItemProductClass) {
-
+    override fun onAdd(item: MenuProductListItem) {
+        mainViewModel.updateProductToMenu(item)
     }
 
-    override fun deleteItem(item: ItemProductClass) {
-
-    }
 }

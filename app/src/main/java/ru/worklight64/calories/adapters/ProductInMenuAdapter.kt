@@ -12,7 +12,7 @@ import ru.worklight64.calories.R
 import ru.worklight64.calories.databinding.ItemProductMenuBinding
 import ru.worklight64.calories.entities.ItemProductClass
 
-class ProductInMenuAdapter(private var listener: ProductInMenuListener, private val defPref: SharedPreferences):
+class ProductInMenuAdapter(private val defPref: SharedPreferences):
     ListAdapter<ItemProductClass, ProductInMenuAdapter.ItemHolder>(ItemComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
@@ -20,14 +20,20 @@ class ProductInMenuAdapter(private var listener: ProductInMenuListener, private 
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        holder.setData(getItem(position), listener, defPref)
+        holder.setData(getItem(position), defPref)
     }
 
     class ItemHolder(view: View): RecyclerView.ViewHolder(view){
         private val itemForm = ItemProductMenuBinding.bind(view)
 
-        fun setData(item: ItemProductClass, listener: ProductInMenuListener, defPref: SharedPreferences)= with(itemForm){
+        fun setData(item: ItemProductClass, defPref: SharedPreferences)= with(itemForm){
             itemForm.tvName.text = item.title
+            if (item.type == 1){
+                tvCommonText.text = "В порции ${item.count} шт."
+            } else {
+                tvCommonText.text = "В порции %.1f грамм".format(item.weight)
+            }
+
             if (item.description.isNotEmpty()) itemForm.tvDecs.text = item.description else itemForm.tvDecs.visibility = View.GONE
             itemForm.tvProtein.text = "%.1f".format(item.protein)
             itemForm.tvCarbo.text = "%.1f".format(item.carbo)
@@ -38,12 +44,6 @@ class ProductInMenuAdapter(private var listener: ProductInMenuListener, private 
                 .load(item.url_picture)
                 .error(R.drawable.p_brokkoli)
                 .into(itemForm.ivProduct)
-
-
-            itemView.setOnClickListener {
-                listener.onClickItem(item)
-            }
-
 
         }
 
@@ -65,10 +65,5 @@ class ProductInMenuAdapter(private var listener: ProductInMenuListener, private 
             return oldItem == newItem
         }
 
-    }
-
-    interface ProductInMenuListener{
-        fun onClickItem(item: ItemProductClass)
-        fun deleteItem(item: ItemProductClass)
     }
 }

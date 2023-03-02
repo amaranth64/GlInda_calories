@@ -1,32 +1,22 @@
 package ru.worklight64.calories
 
-import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.PreferenceManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import ru.worklight64.calories.adapters.ProductListAdapter
-import ru.worklight64.calories.databinding.ActivityProductListBinding
+import ru.worklight64.calories.databinding.ActivityStepByStepBinding
 import ru.worklight64.calories.db.MainViewModel
-import ru.worklight64.calories.dialogs.AddProductToMenuDialog
-import ru.worklight64.calories.entities.ItemProductClass
 import ru.worklight64.calories.entities.MenuProductListItem
-import ru.worklight64.calories.fragments.FragmentProductCategory
+import ru.worklight64.calories.fragments.FragmentManager
+import ru.worklight64.calories.progress.*
 import ru.worklight64.calories.utils.CommonConst
 import ru.worklight64.calories.utils.DataContainerHelper
 
-class ProductListActivity : AppCompatActivity(), ProductListAdapter.ProductListListener, AddProductToMenuDialog.Listener {
-
-    private lateinit var adapter: ProductListAdapter
-    private lateinit var form: ActivityProductListBinding
-    private lateinit var pref: SharedPreferences
-
-    private var currentCategory: String = ""
+class StepByStepActivity : AppCompatActivity(), ProgressInteractor.Observer{
+    private lateinit var form: ActivityStepByStepBinding
+    private lateinit var interactor: ProgressInteractor
+    private var menuID = 0
 
     private val mainViewModel: MainViewModel by viewModels{
         MainViewModel.MainViewModelFactory((applicationContext as MainApp).database)
@@ -34,11 +24,15 @@ class ProductListActivity : AppCompatActivity(), ProductListAdapter.ProductListL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        form = ActivityProductListBinding.inflate(layoutInflater)
+        form = ActivityStepByStepBinding.inflate(layoutInflater)
         setContentView(form.root)
+        setSupportActionBar(form.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        initSharedPreferences()
-        initRecyclerView()
+
+        interactor = ProgressInteractor(this)
+        menuID = intent.getIntExtra(CommonConst.INTENT_MENU, 0)
+        interactor.menuID = menuID
+        interactor.setStep(ProgSteps.CATEGORY)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -47,52 +41,61 @@ class ProductListActivity : AppCompatActivity(), ProductListAdapter.ProductListL
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-         if (item.itemId == android.R.id.home){
-            finish()
+        if (item.itemId == android.R.id.home){
+            if (interactor.getCurrentStep() == ProgSteps.CATEGORY) finish()
+            else {
+                interactor.prev()
+            }
         }
 
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initSharedPreferences(){
-        pref = PreferenceManager.getDefaultSharedPreferences(this)
-        val linear = getString(R.string.pref_linear)
-        if (pref.getString(CommonConst.KEY_LINEAR,linear) == linear) form.rcViewProduct.layoutManager = LinearLayoutManager(this)
-        else form.rcViewProduct.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
+    override fun observe(s: ProgSteps) {
+        when (s){
+            ProgSteps.CATEGORY -> {
+                form.tvStep1.background =  resources.getDrawable(R.color.card_protein)
+                FragmentManager.setFragment(FragProgCategory.newInstance(interactor), this)
+            }
+            ProgSteps.PRODUCT -> {
+                form.tvStep2.setBackgroundColor(resources.getColor(R.color.card_protein))
+                FragmentManager.setFragment(FragProgProduct.newInstance(interactor), this)
+            }
+            ProgSteps.WEIGHT -> {
+                form.tvStep3.setBackgroundColor(resources.getColor(R.color.card_protein))
+                FragmentManager.setFragment(FragProgWeight.newInstance(interactor), this)
+            }
+            ProgSteps.FINAL -> {
+                form.tvStep4.setBackgroundColor(resources.getColor(R.color.card_protein))
+                FragmentManager.setFragment(FragProgFinal.newInstance(interactor), this)
+            }
+            ProgSteps.DONE -> {
+
+
+                itemAddToDB()
+
+            }
+        }
     }
 
-    private fun initRecyclerView(){
-        currentCategory = intent.getStringExtra(FragmentProductCategory.PROD_CAT_KEY).toString()
+    private fun itemAddToDB() {
 
-        val itemList = DataContainerHelper.getContainer(this, currentCategory)
+        val product = interactor.product_item
+        val slug: String = product.slug
+        val weight: Double = interactor.product_weight.toDouble()
+        val count: Int = interactor.product_count.toInt()
+        val menuID: Int = interactor.menuID
 
-        adapter = ProductListAdapter(this@ProductListActivity, pref)
-        adapter.submitList(itemList)
-        if (itemList.isEmpty()) form.tvEmpty.visibility = View.VISIBLE else form.tvEmpty.visibility = View.GONE
-        form.rcViewProduct.adapter = adapter
-    }
-
-    override fun onClickItem(item: ItemProductClass) {
-
-    }
-
-    override fun addItem(item: ItemProductClass) {
-       mainViewModel.allMenuNames.observe(this){
-           mainViewModel.allMenuNames.removeObservers(this)
-           AddProductToMenuDialog.showDialog(this, this, item, it)
-       }
-
-    }
-
-    override fun onAdd(slug: String, weight: Double, count: Int, menuID: Int) {
         mainViewModel.insertProductToMenu(
             MenuProductListItem(
                 null,
-                currentCategory,
+                interactor.category_slug,
                 slug,
                 weight,
                 count,
-                menuID))
+                menuID)
+        )
 
         // рассчитать новые значения для меню
 
@@ -107,20 +110,25 @@ class ProductListActivity : AppCompatActivity(), ProductListAdapter.ProductListL
                 var fat = 0.0
                 var kcal = 0.0
                 menu_list.forEach{menu_item->
+
                     val i = DataContainerHelper.getContainer(this, menu_item.category)
+
                     val product = i.find {
                         it.slug ==  menu_item.slug
                     }
+
                     if (product?.title!!.isNotEmpty()){
+
                         protein += product.protein * menu_item.weight / 100
                         carbo += product.carbo * menu_item.weight / 100
                         fat += product.fat * menu_item.weight / 100
                         kcal += product.energy * menu_item.weight / 100
+
                     }
 
                 }
                 mainViewModel.updateMenuName(currentMenu[0].copy(protein = protein, carbo = carbo, fat = fat, energy =  kcal))
-
+                finish()
             }
 
         }

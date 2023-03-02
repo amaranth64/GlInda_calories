@@ -19,7 +19,7 @@ object DataContainerHelper {
         val data = getContainer(context, category)
         val product = data.find { it.slug == slug }
         if (product != null) return product
-        return ItemProductClass(null,"","","","", 0.0,0.0,0.0,0.0,"","",0,0.0,"")
+        return ItemProductClass(null,"","","","", 0.0,0.0,0.0,0.0,"","",0,0.0,0,"")
     }
 
 

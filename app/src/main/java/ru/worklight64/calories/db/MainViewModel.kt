@@ -32,6 +32,11 @@ class MainViewModel(database: MainDataBase): ViewModel() {
     fun insertProductToMenu(item: MenuProductListItem) = viewModelScope.launch {
         dao.insertProductToMenu(item)
     }
+
+    fun updateProductToMenu(item: MenuProductListItem) = viewModelScope.launch {
+        dao.updateProductInMenu(item)
+    }
+
     fun deleteProductInMenu(id: Int) = viewModelScope.launch {
         dao.deleteProductInMenu(id)
     }

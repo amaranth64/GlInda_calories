@@ -7,7 +7,7 @@ data class ItemProductClass(
     val title: String,
     val description: String,
     val brand: String,
-    val category: String,
+    val class_of_product: String,
     val protein: Double,
     val carbo: Double,
     val fat: Double,
@@ -16,5 +16,6 @@ data class ItemProductClass(
     val url_site: String,
     val type: Int,
     val weight: Double,
+    val count: Int,
     val slug: String
 )

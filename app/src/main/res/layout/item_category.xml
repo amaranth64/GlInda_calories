@@ -8,11 +8,11 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
         android:scaleType="fitStart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,39 +25,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="110dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="55dp"
         android:gravity="start"
         android:maxLines="2"
         android:singleLine="false"
         android:text="@string/dairy_produce"
-        android:textSize="26sp"
+        android:textSize="20sp"
+        android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"/>
 
+
     <ImageView
         android:id="@+id/ivExpand"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="10dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
 
+        android:layout_margin="10dp"
         android:contentDescription="@string/photo"
+        android:padding="5dp"
         android:scaleType="fitStart"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@drawable/ic_add_menu_b" />
-
+        app:layout_constraintVertical_bias="0.457"
+        app:srcCompat="@drawable/ic_plus_b" />
 
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+
         android:orientation="vertical"
         android:background="@color/gray_linear"
-        app:layout_constraintTop_toBottomOf = "@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
     </LinearLayout>
@@ -67,10 +71,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        android:layout_marginBottom="2dp"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_sub_category"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linear"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf = "@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/linear"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

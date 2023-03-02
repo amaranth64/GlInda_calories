@@ -9,31 +9,26 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import ru.worklight64.calories.R
-import ru.worklight64.calories.databinding.ItemProductMenuBinding
+import ru.worklight64.calories.databinding.ItemProductAddBinding
 import ru.worklight64.calories.entities.ItemProductClass
+import ru.worklight64.calories.progress.ItemClickListener
 
-class ProductInMenuAdapter(private val defPref: SharedPreferences):
-    ListAdapter<ItemProductClass, ProductInMenuAdapter.ItemHolder>(ItemComparator()) {
+class ProductAddAdapter(private var listener: ItemClickListener, private val defPref: SharedPreferences):
+    ListAdapter<ItemProductClass, ProductAddAdapter.ItemHolder>(ItemComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         return ItemHolder.create(parent)
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        holder.setData(getItem(position), defPref)
+        holder.setData(getItem(position), listener, defPref)
     }
 
     class ItemHolder(view: View): RecyclerView.ViewHolder(view){
-        private val itemForm = ItemProductMenuBinding.bind(view)
+        private val itemForm = ItemProductAddBinding.bind(view)
 
-        fun setData(item: ItemProductClass, defPref: SharedPreferences)= with(itemForm){
+        fun setData(item: ItemProductClass, listener: ItemClickListener, defPref: SharedPreferences)= with(itemForm){
             itemForm.tvName.text = item.title
-            if (item.type == 1){
-                tvCommonText.text = "В порции ${item.count} шт."
-            } else {
-                tvCommonText.text = "В порции %.1f грамм".format(item.weight)
-            }
-
             if (item.description.isNotEmpty()) itemForm.tvDecs.text = item.description else itemForm.tvDecs.visibility = View.GONE
             itemForm.tvProtein.text = "%.1f".format(item.protein)
             itemForm.tvCarbo.text = "%.1f".format(item.carbo)
@@ -45,13 +40,17 @@ class ProductInMenuAdapter(private val defPref: SharedPreferences):
                 .error(R.drawable.p_brokkoli)
                 .into(itemForm.ivProduct)
 
+
+            itemView.setOnClickListener {
+                listener.itemClick(item)
+            }
         }
 
         companion object{
             fun create(parent:ViewGroup):ItemHolder{
                 return ItemHolder(
                     LayoutInflater.from(parent.context).inflate(
-                    R.layout.item_product_menu, parent, false))
+                    R.layout.item_product_add, parent, false))
             }
         }
     }

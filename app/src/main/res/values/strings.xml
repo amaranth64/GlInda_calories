@@ -21,21 +21,35 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
 
+    <string name="test_name_product">Напитки для похудения «Жиросжигающий комплекс»</string>
+
     <string name="error_db">Ошибка базы данных</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pref_linear">linear</string>
     <string name="empty">Пусто</string>
     <string name="caption">Caption</string>
-    <string name="text_hint">Text hitt</string>
+    <string name="text_hint">Text hint</string>
     <string name="button">Button</string>
-    <string name="txt_at100gramm">на 100 грамм продукта:</string>
-    <string name="txt_at1por">на одну порцию:</string>
+    <string name="txt_at100gramm">на 100 грамм продукта</string>
+    <string name="txt_atporgramm">в заданной порции</string>
+    <string name="txt_at1por">на одну порцию (%.1f грамм)</string>
     <string name="add">Добавить</string>
+    <string name="set_weight">Задать вес</string>
     <string name="cancel">отмена</string>
-    <string name="size_of_por">Размер порции в граммах:</string>
-    <string name="size_of_gramm">Размер порции в граммах:</string>
-    <string name="add_to_menu">Добавить к меню:</string>
+    <string name="size_of_por">Размер порции в граммах</string>
+    <string name="size_of_gramm">Размер порции в граммах</string>
 
+    <string name="choose_menu">Выбрать меню:</string>
+    <string name="add_to_menu">Добавить в меню</string>
+
+    <string name="portion_in_menu">Значения на %1$.1f грамм продукта</string>
+
+    <string name="choose_category">Выбор\nкатегории</string>
+    <string name="choose_product">Выбор\nпродукта</string>
+    <string name="choose_weight">Размер\nпорции</string>
+    <string name="choose_add_to_menu">Добавить\nв меню</string>
+    <string name="enter_caption">Введите название</string>
+    <string name="menu_name">Название меню</string>
 
 </resources>

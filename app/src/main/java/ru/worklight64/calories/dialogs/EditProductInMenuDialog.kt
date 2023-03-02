@@ -10,19 +10,27 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.squareup.picasso.Picasso
 import ru.worklight64.calories.R
-import ru.worklight64.calories.databinding.DialogAddProductToMenuBinding
+import ru.worklight64.calories.databinding.DialogEditProductInMenuBinding
 import ru.worklight64.calories.entities.ItemProductClass
-import ru.worklight64.calories.entities.MenuNameListItem
+import ru.worklight64.calories.entities.MenuProductListItem
 import ru.worklight64.calories.utils.CommonConst
+import ru.worklight64.calories.utils.DataContainerHelper
 
-object AddProductToMenuDialog {
+object EditProductInMenuDialog {
 
-    fun showDialog(context: Context, listener: Listener, item: ItemProductClass, menu: List<MenuNameListItem>){
+    fun showDialog(
+        context: Context,
+        listener: Listener,
+        product: ItemProductClass,
+        productInMenu: MenuProductListItem
+    ){
 
         var dialog: AlertDialog? = null
         val builder = AlertDialog.Builder(context)
-        val form = DialogAddProductToMenuBinding.inflate(LayoutInflater.from(context))
+        val form = DialogEditProductInMenuBinding.inflate(LayoutInflater.from(context))
         builder.setView(form.root)
+
+        val item = DataContainerHelper.productInContainer(context, productInMenu.category, product.slug)
 
         form.tvName.text = item.title
         form.tvDecs.text = item.description
@@ -42,8 +50,7 @@ object AddProductToMenuDialog {
             form.tvCaption1por.visibility = View.GONE
         }
 
-        var str = context.getString(R.string.txt_at1por).format(item.weight)
-        //str += " (%.1f грамм)".format(product.weight)
+        val str = context.getString(R.string.txt_at1por).format(item.weight)
 
         form.tvCaption1por.text = str
         form.tvProtein1por.text = "%.1f".format(item.protein * item.weight/100)
@@ -53,21 +60,20 @@ object AddProductToMenuDialog {
 
 
 
-        if (item.type == CommonConst.TYPE_WEIGHT) form.spPortion.visibility = View.GONE
-        if (item.type == CommonConst.TYPE_100) form.edPortion.visibility = View.GONE
+        if (item.type == CommonConst.TYPE_WEIGHT) {
+            form.spPortion.visibility = View.GONE
+            form.edPortion.setText(product.weight.toInt().toString())
+        }
+        if (item.type == CommonConst.TYPE_100) {
+            form.edPortion.visibility = View.GONE
+            form.spPortion.setSelection(product.count)
+        }
 
         val spinnerPorItem = arrayListOf<Int>(1,2,3,4,5)
         val adapterPor = ArrayAdapter(context, android.R.layout.simple_spinner_item, spinnerPorItem)
         adapterPor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         form.spPortion.adapter = adapterPor
-
-
-        val spinnerMenuItem = ArrayList<String>()
-        menu.forEach{spinnerMenuItem.add(it.name)}
-        val adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, spinnerMenuItem)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        form.spMenuName.adapter = adapter
-
+        if (item.type == CommonConst.TYPE_100) form.spPortion.setSelection(product.count-1)
 
         form.edPortion.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -120,10 +126,11 @@ object AddProductToMenuDialog {
                 weight = item.weight * form.spPortion.selectedItem.toString().toInt()
                 count = form.spPortion.selectedItem.toString().toInt()
             }
-            val menuID = menu[form.spMenuName.selectedItemId.toInt()].id
-            if (menuID != null) {
-                listener.onAdd(item.slug, weight, count, menuID)
-            }
+
+
+
+            listener.onAdd(productInMenu.copy(weight = weight, count = count))
+
             dialog?.dismiss()
         }
 
@@ -138,7 +145,7 @@ object AddProductToMenuDialog {
     }
 
     interface Listener{
-        fun onAdd(slug:String, weight: Double, count: Int, menuID: Int)
+        fun onAdd(item: MenuProductListItem)
     }
 
 }

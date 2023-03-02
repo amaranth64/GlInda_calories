@@ -14,9 +14,10 @@ import ru.worklight64.calories.R
 import ru.worklight64.calories.databinding.ItemSubCategoryBinding
 import ru.worklight64.calories.entities.ItemSubCategoryClass
 import ru.worklight64.calories.fragments.FragmentProductCategory
+import ru.worklight64.calories.progress.ItemClickListener
 
 
-class SubCategoryAdapter(private val context: Context):
+class SubCategoryAdapter(private val context: Context, private val listener: ItemClickListener):
     ListAdapter<ItemSubCategoryClass, SubCategoryAdapter.ItemHolder>(ItemComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
@@ -24,13 +25,13 @@ class SubCategoryAdapter(private val context: Context):
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        holder.setData(getItem(position), context)
+        holder.setData(getItem(position), context, listener)
     }
 
     class ItemHolder(view: View): RecyclerView.ViewHolder(view){
         private val itemForm = ItemSubCategoryBinding.bind(view)
 
-        fun setData(item: ItemSubCategoryClass, context: Context) = with(itemForm){
+        fun setData(item: ItemSubCategoryClass, context: Context, listener: ItemClickListener) = with(itemForm){
             tvName.text = item.name
             Picasso.get()
                 .load("https://calorizator.ru/sites/default/files/imagecache/product_512/product/bombbar-keto-almond-nougat-vanilla.jpg")
@@ -38,9 +39,10 @@ class SubCategoryAdapter(private val context: Context):
                 .into(imageView)
 
             itemView.setOnClickListener {
-                val i = Intent(context, ProductListActivity::class.java).putExtra(
-                    FragmentProductCategory.PROD_CAT_KEY, item.slug)
-                context.startActivity(i)
+//                val i = Intent(context, ProductListActivity::class.java).putExtra(
+//                    FragmentProductCategory.PROD_CAT_KEY, item.slug)
+//                context.startActivity(i)
+                listener.itemClick(item.slug)
             }
         }
 

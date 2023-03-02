@@ -11,7 +11,7 @@ import ru.worklight64.calories.R
 import ru.worklight64.calories.databinding.ItemMenuNameBinding
 import ru.worklight64.calories.entities.MenuNameListItem
 
-class MyFoodAdapter(private var listener: MyFoodListener, private val defPref: SharedPreferences):
+class MyFoodAdapter(private val defPref: SharedPreferences):
     ListAdapter<MenuNameListItem, MyFoodAdapter.ItemHolder>(ItemComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
@@ -19,31 +19,20 @@ class MyFoodAdapter(private var listener: MyFoodListener, private val defPref: S
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        holder.setData(getItem(position), listener, defPref)
+        holder.setData(getItem(position),  defPref)
     }
 
     class ItemHolder(view: View): RecyclerView.ViewHolder(view){
         private val itemForm = ItemMenuNameBinding.bind(view)
         //private val itemForm = TaskItemBinding.bind(view)
 
-        fun setData(item: MenuNameListItem, listener: MyFoodListener, defPref: SharedPreferences)= with(itemForm){
+        fun setData(item: MenuNameListItem, defPref: SharedPreferences)= with(itemForm){
             itemForm.tvName.text = item.name
 
             itemForm.tvProtein.text = "%.1f".format(item.protein)
             itemForm.tvCarbo.text = "%.1f".format(item.carbo)
             itemForm.tvFat.text = "%.1f".format(item.fat)
             itemForm.tvEnergy.text = "%.1f".format(item.energy)
-
-            itemView.setOnClickListener {
-                listener.onClickItem(item)
-            }
-
-//            itemForm.ibEdit.setOnClickListener {
-//                listener.editItem(item)
-//            }
-//            itemForm.ibDelete.setOnClickListener {
-//                listener.deleteItem(item)
-//            }
 
         }
 
@@ -65,11 +54,5 @@ class MyFoodAdapter(private var listener: MyFoodListener, private val defPref: S
             return oldItem == newItem
         }
 
-    }
-
-    interface MyFoodListener{
-        fun onClickItem(item: MenuNameListItem)
-        fun deleteItem(item: MenuNameListItem)
-        fun editItem(item: MenuNameListItem)
     }
 }

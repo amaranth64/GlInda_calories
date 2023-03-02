@@ -1,5 +1,6 @@
 package ru.worklight64.calories
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -11,6 +12,7 @@ import ru.worklight64.calories.fragments.FragmentCalc
 import ru.worklight64.calories.fragments.FragmentManager
 import ru.worklight64.calories.fragments.FragmentMyFood
 import ru.worklight64.calories.fragments.FragmentProductCategory
+import ru.worklight64.calories.utils.CommonConst
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     
@@ -24,7 +26,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(form.root)
 
         init()
-
     }
 
     private fun init(){
@@ -53,7 +54,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 FragmentManager.setFragment(FragmentCalc.newInstance(), this)
             }
             R.id.id_nav_menu_settings -> {
-
+                val i = Intent(this, StepByStepActivity::class.java).putExtra(CommonConst.INTENT_MENU, 1)
+                startActivity(i)
             }
             R.id.id_nav_menu_about -> {
 

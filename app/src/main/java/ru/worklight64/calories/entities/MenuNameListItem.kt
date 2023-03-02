@@ -18,7 +18,5 @@ data class MenuNameListItem(
     @ColumnInfo(name = "fat")
     val fat: Double,
     @ColumnInfo(name = "energy")
-    val energy: Double,
-    @ColumnInfo(name = "slug")
-    val slug: String
+    val energy: Double
 ): Serializable

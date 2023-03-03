@@ -19,6 +19,12 @@
         <item name="colorRCBackground">@color/rcview_background_blue</item>
     </style>
 
+    <style name="Theme.GlInda_calories.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.GlInda_calories.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <style name="WithActionBar" parent="Theme.GlInda_calories">
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">false</item>

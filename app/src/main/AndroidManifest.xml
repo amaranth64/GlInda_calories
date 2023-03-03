@@ -19,8 +19,7 @@
             android:exported="false" />
         <activity
             android:name=".ProductInMyFoodActivity"
-            android:exported="false"
-            android:theme="@style/WithActionBar" />
+            android:exported="false" />
         <activity
             android:name=".ProductListActivity"
             android:exported="false"

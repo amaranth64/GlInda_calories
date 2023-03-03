@@ -12,7 +12,8 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:theme="@style/Theme.GlInda_calories.AppBarOverlay">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
@@ -29,7 +30,7 @@
             app:expandedTitleTextColor="@color/black"
             app:expandedTitleTextAppearance="@style/Theme.GlInda_calories"
             app:collapsedTitleTextAppearance="@style/Theme.GlInda_calories"
-            app:layout_scrollFlags="scroll|snap|enterAlways|exitUntilCollapsed"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
 
 
@@ -65,7 +66,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvFirstPlace"
+                        android:id="@+id/tvProtein"
                         android:layout_marginStart="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -84,7 +85,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvSecondPlace"
+                        android:id="@+id/tvCarbo"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_width="match_parent"
@@ -104,7 +105,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvThirstPlace"
+                        android:id="@+id/tvFats"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_width="match_parent"
@@ -124,7 +125,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvPoints"
+                        android:id="@+id/tvEnergy"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_width="match_parent"
@@ -140,15 +141,15 @@
                 app:subtitleTextColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"/>
+                app:layout_collapseMode="pin"
+                android:background="@color/purple_500"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
 
-
-
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -170,18 +171,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/bAddProduct"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:backgroundTint="?attr/colorPrimary"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/ic_plus_b"
-                app:layout_constraintBottom_toBottomOf="@+id/rcViewProduct"
-                app:layout_constraintEnd_toEndOf="@+id/rcViewProduct"
-                android:contentDescription="@string/add_to_menu" />
+
 
             <TextView
                 android:id="@+id/tvEmpty"
@@ -201,6 +191,20 @@
 
 
     </androidx.core.widget.NestedScrollView>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/bAddProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:backgroundTint="?attr/colorPrimary"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="80dp"
+        android:src="@drawable/ic_plus_b"
+        app:layout_anchor="@id/nestedScroll"
+        app:layout_anchorGravity="bottom|right|end"
+        android:contentDescription="@string/add_to_menu" />
 
     <ProgressBar
 

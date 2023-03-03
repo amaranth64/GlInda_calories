@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import ru.worklight64.calories.adapters.ProductInMenuAdapter
 import ru.worklight64.calories.adapters.RecyclerTouchListener
-import ru.worklight64.calories.databinding.ActivityProductInMyfoodBinding
+import ru.worklight64.calories.databinding.ActivityMyfoodLayoutBinding
 import ru.worklight64.calories.db.MainViewModel
 import ru.worklight64.calories.dialogs.EditProductInMenuDialog
 import ru.worklight64.calories.entities.ItemProductClass
@@ -26,7 +26,7 @@ import ru.worklight64.calories.utils.DataContainerHelper
 import java.io.Serializable
 
 class ProductInMyFoodActivity : AppCompatActivity(), EditProductInMenuDialog.Listener{
-    lateinit var form: ActivityProductInMyfoodBinding
+    lateinit var form: ActivityMyfoodLayoutBinding
     private lateinit var menu:MenuNameListItem
     private lateinit var adapter: ProductInMenuAdapter
     private lateinit var pref: SharedPreferences
@@ -38,8 +38,9 @@ class ProductInMyFoodActivity : AppCompatActivity(), EditProductInMenuDialog.Lis
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        form = ActivityProductInMyfoodBinding.inflate(layoutInflater)
+        form = ActivityMyfoodLayoutBinding.inflate(layoutInflater)
         setContentView(form.root)
+        setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         initSharedPreferences()
         initRecyclerView()
@@ -60,6 +61,7 @@ class ProductInMyFoodActivity : AppCompatActivity(), EditProductInMenuDialog.Lis
 
     private fun observer() {
         menu = getSerializable(intent, CommonConst.INTENT_MENU, MenuNameListItem::class.java)
+        form.toolbarLayout.title = menu.name
         mainViewModel.allProductInMenuList(menu.id!!).observe(this) { menu_item ->
             productsInMenu = menu_item as ArrayList<MenuProductListItem>
             val items = ArrayList<ItemProductClass>()
@@ -94,6 +96,12 @@ class ProductInMyFoodActivity : AppCompatActivity(), EditProductInMenuDialog.Lis
             )
 
             adapter.submitList(items)
+            form.pbLoading.visibility = View.GONE
+            form.tvProtein.text = "%.1f".format(protein)
+            form.tvCarbo.text = "%.1f".format(carbo)
+            form.tvFats.text = "%.1f".format(fat)
+            form.tvEnergy.text = "%.1f".format(kcal)
+
             if (items.isEmpty()) form.tvEmpty.visibility =
                 View.VISIBLE else form.tvEmpty.visibility = View.GONE
         }
@@ -107,6 +115,7 @@ class ProductInMyFoodActivity : AppCompatActivity(), EditProductInMenuDialog.Lis
     }
 
     private fun initRecyclerView(){
+
         adapter = ProductInMenuAdapter(pref)
         form.rcViewProduct.adapter = adapter
 

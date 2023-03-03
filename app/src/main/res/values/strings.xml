@@ -51,5 +51,6 @@
     <string name="choose_add_to_menu">Добавить\nв меню</string>
     <string name="enter_caption">Введите название</string>
     <string name="menu_name">Название меню</string>
+    <string name="save">Сохранить</string>
 
 </resources>
